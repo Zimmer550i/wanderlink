@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:wanderlink/utils/app_colors.dart';
 
 Future<File?> customImagePicker({isCircular = true, isSquared = true}) async {
   final picker = ImagePicker();
@@ -18,10 +17,10 @@ Future<File?> customImagePicker({isCircular = true, isSquared = true}) async {
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Crop your image',
-          toolbarColor: AppColors.black,
+          toolbarColor: Color(0xff1C73A3),
           toolbarWidgetColor: Colors.blue[50],
-          backgroundColor: AppColors.black,
-          statusBarColor: AppColors.blue,
+          backgroundColor: Colors.black,
+          statusBarColor: Colors.white,
           cropStyle: isCircular ? CropStyle.circle : CropStyle.rectangle,
           hideBottomControls: isSquared,
           initAspectRatio: CropAspectRatioPreset.square,

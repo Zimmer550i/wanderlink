@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final String? title;
   final bool hasLeading;
+  final Widget? trailing;
   final bool bottomPadding;
   const CustomAppBar({
     super.key,
-    required this.title,
+    this.title,
     this.hasLeading = true,
     this.bottomPadding = true,
+    this.trailing,
   });
 
   @override
@@ -28,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             SizedBox(width: 24),
             InkWell(
               onTap: () => hasLeading ? Get.back() : null,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(999),
               child: SizedBox(
                 height: 48,
                 width: 48,
@@ -52,15 +54,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             Spacer(),
             Text(
-              title,
+              title ?? "",
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22),
             ),
             Spacer(),
-            const SizedBox(width: 48),
+            SizedBox(width: 48, child: trailing ?? Container()),
             const SizedBox(width: 24),
           ],
         ),
-        // bottom: PreferredSize(preferredSize: Size(0, 30), child: Container()),
       ),
     );
   }

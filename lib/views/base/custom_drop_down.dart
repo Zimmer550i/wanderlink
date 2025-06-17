@@ -1,4 +1,3 @@
-import 'package:wanderlink/utils/app_colors.dart';
 import 'package:wanderlink/utils/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -54,7 +53,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
             style: TextStyle(
               fontVariations: [FontVariation("wght", 600)],
               fontSize: 16,
-              color: AppColors.blue[600],
+              color: Colors.white,
             ),
           ),
 
@@ -67,7 +66,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 8),
             decoration: BoxDecoration(
-              color: AppColors.black[400],
+              color: Colors.black,
               borderRadius: BorderRadius.circular(widget.radius),
             ),
             child: Column(
@@ -81,13 +80,13 @@ class _CustomDropDownState extends State<CustomDropDown> {
                           ? Text(
                               widget.hintText ?? "Select One",
                               style: AppTexts.tsmr.copyWith(
-                                color: AppColors.black.shade200,
+                                color: Colors.blueGrey,
                               ),
                             )
                           : Text(
                               currentVal!,
                               style: AppTexts.tsmr.copyWith(
-                                color: AppColors.black.shade50,
+                                color: Colors.grey,
                               ),
                             ),
                       const Spacer(),
@@ -121,7 +120,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                                   decoration: BoxDecoration(
                                     border: Border(
                                       top: BorderSide(
-                                        color: AppColors.blue[400]!,
+                                        color: Colors.black,
                                         width: 0.5,
                                       ),
                                     ),
@@ -131,7 +130,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                                     child: Text(
                                       e,
                                       style: TextStyle(
-                                        color: AppColors.blue[50],
+                                        color: Colors.white,
                                         fontSize: 14,
                                       ),
                                     ),

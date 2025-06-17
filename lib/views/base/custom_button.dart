@@ -1,4 +1,3 @@
-import 'package:wanderlink/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -57,7 +56,6 @@ class _CustomButtonState extends State<CustomButton> {
                   end: Alignment.bottomCenter,
                   colors: [Color(0xFF6DC3F2), Color(0xFF0289F2)],
                 ),
-          border: widget.isSecondary ? Border.all(color: AppColors.blue) : null,
         ),
         child: widget.isLoading
             ? FittedBox(
@@ -65,9 +63,7 @@ class _CustomButtonState extends State<CustomButton> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CircularProgressIndicator(
-                    color: widget.isSecondary
-                        ? AppColors.blue
-                        : AppColors.blue[50],
+                    color: Colors.white,
                     strokeWidth: 4,
                   ),
                 ),
@@ -83,9 +79,7 @@ class _CustomButtonState extends State<CustomButton> {
                       height: widget.iconSize,
                       width: widget.iconSize,
                       colorFilter: ColorFilter.mode(
-                        widget.isSecondary
-                            ? AppColors.blue
-                            : AppColors.blue[25]!,
+                        Colors.white,
                         BlendMode.srcIn,
                       ),
                     ),

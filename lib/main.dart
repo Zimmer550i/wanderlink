@@ -1,5 +1,4 @@
 import 'package:wanderlink/themes/light_theme.dart';
-import 'package:wanderlink/utils/app_colors.dart';
 import 'package:wanderlink/utils/app_constants.dart';
 import 'package:wanderlink/utils/message.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ void main() async {
   Map<String, Map<String, String>> languages = await di.init();
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      statusBarColor: AppColors.black[600],
+      // statusBarColor: AppColors.black[600],
       statusBarIconBrightness: Brightness.light,
     ),
   );

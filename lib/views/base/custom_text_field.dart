@@ -1,4 +1,3 @@
-import 'package:wanderlink/utils/app_colors.dart';
 import 'package:wanderlink/utils/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -122,7 +121,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     focusNode: focusNode,
                     controller: widget.controller,
                     maxLines: widget.lines,
-                    cursorColor: AppColors.blue,
+                    cursorColor: Color(0xff1C73A3),
                     keyboardType: widget.textInputType,
                     obscureText: isObscured,
                     enabled: !widget.isDisabled && widget.onTap == null,
@@ -155,7 +154,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     height: 20,
                     width: 20,
                     colorFilter: ColorFilter.mode(
-                      isFocused ? AppColors.blue : AppColors.black.shade100,
+                        Colors.black.withAlpha(50),
                       BlendMode.srcIn,
                     ),
                   ),
@@ -188,7 +187,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               style: TextStyle(
                 fontVariations: [FontVariation("wght", 400)],
                 fontSize: 12,
-                color: AppColors.red,
+                color: Colors.red,
               ),
             ),
           ),

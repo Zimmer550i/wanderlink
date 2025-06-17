@@ -3,12 +3,7 @@ import 'package:wanderlink/utils/custom_svg.dart';
 
 class CustomBottomNavbar extends StatefulWidget {
   final int index;
-  final Function(int) onClick;
-  const CustomBottomNavbar({
-    super.key,
-    required this.index,
-    required this.onClick,
-  });
+  const CustomBottomNavbar({super.key, required this.index});
 
   @override
   State<CustomBottomNavbar> createState() => _CustomBottomNavbarState();
@@ -16,6 +11,10 @@ class CustomBottomNavbar extends StatefulWidget {
 
 class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
   List<String> assets = ["world", "explore", "social", "profile"];
+
+  void handleTabs(int val) {
+    if (val == 0) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
     bool isSelected = pos == widget.index;
     return GestureDetector(
       onTap: () {
-        widget.onClick(pos);
+        handleTabs(pos);
       },
       behavior: HitTestBehavior.translucent,
       child: Column(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wanderlink/utils/app_colors.dart';
 
 class CustomLoading extends StatelessWidget {
   final Color? color;
@@ -8,7 +7,7 @@ class CustomLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CircularProgressIndicator(color: color ?? AppColors.blue[50]),
+      child: CircularProgressIndicator(color: color ?? Colors.white),
     );
   }
 }
