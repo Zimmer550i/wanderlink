@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:wanderlink/utils/app_icons.dart';
 import 'package:wanderlink/utils/custom_svg.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final String? hintText;
-  const CustomSearchBar({super.key, this.hintText});
+  final double height;
+  final double iconSize;
+  const CustomSearchBar({super.key, this.hintText, this.height = 60, this.iconSize = 24});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: height,
       padding: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         color: Colors.white.withAlpha(230),
         borderRadius: BorderRadius.circular(99),
         boxShadow: [
-          BoxShadow(blurRadius: 24,
+          BoxShadow(
+            blurRadius: 24,
             offset: Offset(0, 4),
-            color: Colors.black.withAlpha(59)
-          )
-        ]
+            color: Colors.black.withAlpha(59),
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -26,17 +30,17 @@ class CustomSearchBar extends StatelessWidget {
             child: TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: hintText,
+                hintText: hintText ?? "Search Country . . .",
                 hintStyle: TextStyle(fontSize: 14, color: Color(0xffACACAC)),
               ),
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
-                color: Colors.black
+                color: Colors.black,
               ),
             ),
           ),
-          CustomSvg(asset: "assets/icons/search.svg", size: 24),
+          CustomSvg(asset: AppIcons.search, size: iconSize, color: Color(0xff1C75BC)),
         ],
       ),
     );

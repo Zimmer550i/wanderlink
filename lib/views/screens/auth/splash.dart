@@ -25,7 +25,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
       ..addListener(() {
         setState(() {});
         if (_animation.isCompleted) {
-          Get.to(() => Login(), transition: Transition.downToUp);
+          Get.to(() => Login(), transition: Transition.fadeIn);
         }
       });
 

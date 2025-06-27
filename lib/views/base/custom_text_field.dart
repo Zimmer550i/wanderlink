@@ -17,6 +17,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final bool isPassword;
   final int lines;
+  final bool darkerShadow;
   final void Function()? onTap;
   const CustomTextField({
     super.key,
@@ -26,6 +27,7 @@ class CustomTextField extends StatefulWidget {
     this.trailing,
     this.isPassword = false,
     this.isDisabled = false,
+    this.darkerShadow = true,
     this.radius = 50,
     this.lines = 1,
     this.textInputType,
@@ -99,7 +101,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 BoxShadow(
                   blurRadius: 24,
                   offset: Offset(0, 4),
-                  color: Colors.black.withAlpha(18),
+                  color: Colors.black.withAlpha(((widget.darkerShadow ? 23 : 6)*2.55).toInt()),
                 ),
               ],
             ),
@@ -154,7 +156,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     height: 20,
                     width: 20,
                     colorFilter: ColorFilter.mode(
-                        Colors.black.withAlpha(50),
+                      Colors.black.withAlpha(50),
                       BlendMode.srcIn,
                     ),
                   ),

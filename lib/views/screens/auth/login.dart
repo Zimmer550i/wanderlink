@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wanderlink/utils/custom_svg.dart';
 import 'package:wanderlink/views/base/custom_button.dart';
 import 'package:wanderlink/views/base/custom_text_field.dart';
+import 'package:wanderlink/views/screens/auth/forgot_password.dart';
+import 'package:wanderlink/views/screens/auth/register.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final emailCtrl = TextEditingController();
+  final passCtrl = TextEditingController();
+
+  void onClick() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +37,7 @@ class Login extends StatelessWidget {
                 tag: "logo",
                 child: CustomSvg(asset: "assets/icons/logo.svg"),
               ),
-              Spacer(flex: 3,),
+              Spacer(flex: 3),
               Container(
                 padding: EdgeInsets.all(24),
                 decoration: BoxDecoration(
@@ -33,7 +46,7 @@ class Login extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 36),
                     Text(
                       "WELCOME!",
                       style: TextStyle(
@@ -51,25 +64,35 @@ class Login extends StatelessWidget {
                     CustomTextField(
                       leading: "assets/icons/email.svg",
                       hintText: "Email...",
+                      controller: emailCtrl,
+                      darkerShadow: false,
                     ),
                     const SizedBox(height: 21),
                     CustomTextField(
                       leading: "assets/icons/password.svg",
                       hintText: "Password...",
+                      controller: passCtrl,
                       isPassword: true,
+                      darkerShadow: false,
                     ),
                     const SizedBox(height: 24),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        "Forgot Password?",
-                        style: TextStyle(color: Color(0xff0F9BE9)),
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(() => ForgotPassword());
+                        },
+                        child: Text(
+                          "Forgot Password?",
+                          style: TextStyle(color: Color(0xff0F9BE9)),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 43),
                     CustomButton(
                       text: "Login",
                       trailing: "assets/icons/arrow_right.svg",
+                      onTap: onClick,
                     ),
                     const SizedBox(height: 20),
 
@@ -134,7 +157,6 @@ class Login extends StatelessWidget {
                       top: false,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        spacing: 3,
                         children: [
                           Text(
                             "Don’t Have An Account?",
@@ -143,11 +165,16 @@ class Login extends StatelessWidget {
                               color: Color(0xff20222C),
                             ),
                           ),
-                          Text(
-                            "Register Now",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xffFC5C00),
+                          InkWell(
+                            onTap: () {
+                              Get.to(() => Register());
+                            },
+                            child: Text(
+                              " Register Now ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xffFC5C00),
+                              ),
                             ),
                           ),
                         ],

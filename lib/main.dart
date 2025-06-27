@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               // theme: themeController.darkTheme ? dark() : light(),
               theme: light(),
-              defaultTransition: Transition.cupertino,
+              defaultTransition: Transition.fadeIn,
               locale: localizeController.locale,
               translations: Messages(languages: languages),
               fallbackLocale: Locale(

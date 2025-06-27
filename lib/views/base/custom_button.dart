@@ -28,7 +28,7 @@ class CustomButton extends StatefulWidget {
     this.isDisabled = false,
     this.fontSize = 16,
     this.iconSize = 24,
-    this.height = 50,
+    this.height = 40,
     this.width = double.infinity,
   });
 
