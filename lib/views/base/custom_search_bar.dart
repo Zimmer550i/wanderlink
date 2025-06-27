@@ -6,7 +6,16 @@ class CustomSearchBar extends StatelessWidget {
   final String? hintText;
   final double height;
   final double iconSize;
-  const CustomSearchBar({super.key, this.hintText, this.height = 60, this.iconSize = 24});
+  final TextEditingController? controller;
+  final void Function(String)? onChanged;
+  const CustomSearchBar({
+    super.key,
+    this.hintText,
+    this.height = 60,
+    this.iconSize = 24,
+    this.controller,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +37,8 @@ class CustomSearchBar extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              controller: controller,
+              onChanged: onChanged,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: hintText ?? "Search Country . . .",
@@ -40,7 +51,11 @@ class CustomSearchBar extends StatelessWidget {
               ),
             ),
           ),
-          CustomSvg(asset: AppIcons.search, size: iconSize, color: Color(0xff1C75BC)),
+          CustomSvg(
+            asset: AppIcons.search,
+            size: iconSize,
+            color: Color(0xff1C75BC),
+          ),
         ],
       ),
     );
