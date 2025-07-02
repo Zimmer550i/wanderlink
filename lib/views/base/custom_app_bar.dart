@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wanderlink/utils/app_icons.dart';
+import 'package:wanderlink/utils/custom_svg.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final bool hasLeading;
   final Widget? trailing;
   final bool bottomPadding;
+  final bool showLogo;
   const CustomAppBar({
     super.key,
     this.title,
     this.hasLeading = true,
-    this.bottomPadding = true,
+    this.bottomPadding = false,
+    this.showLogo = false,
     this.trailing,
   });
 
@@ -23,6 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       padding: EdgeInsets.only(bottom: bottomPadding ? 30.0 : 0),
       child: AppBar(
         backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
         automaticallyImplyLeading: false,
         titleSpacing: 0,
         title: Row(
@@ -53,10 +58,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             Spacer(),
-            Text(
-              title ?? "",
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22),
-            ),
+            showLogo
+                ? CustomSvg(asset: AppIcons.logo, height: 37)
+                : Text(
+                    title ?? "",
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22),
+                  ),
             Spacer(),
             SizedBox(width: 48, child: trailing ?? Container()),
             const SizedBox(width: 24),

@@ -16,6 +16,7 @@ import 'package:wanderlink/views/base/custom_switch.dart';
 import 'package:wanderlink/views/base/profile_picture.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:wanderlink/views/screens/home/home.dart';
 
 class CreateProfile extends StatefulWidget {
   const CreateProfile({super.key});
@@ -476,7 +477,12 @@ class _CreateProfileState extends State<CreateProfile> {
             ),
           ),
           const SizedBox(height: 56),
-          CustomButton(text: "Save"),
+          CustomButton(
+            text: "Save",
+            onTap: () {
+              Get.to(() => Home());
+            },
+          ),
         ],
       ),
     );

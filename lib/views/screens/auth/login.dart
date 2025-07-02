@@ -5,6 +5,7 @@ import 'package:wanderlink/views/base/custom_button.dart';
 import 'package:wanderlink/views/base/custom_text_field.dart';
 import 'package:wanderlink/views/screens/auth/forgot_password.dart';
 import 'package:wanderlink/views/screens/auth/register.dart';
+import 'package:wanderlink/views/screens/home/home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -17,7 +18,9 @@ class _LoginState extends State<Login> {
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
 
-  void onClick() async {}
+  void onClick() async {
+    Get.to(() => Home());
+  }
 
   @override
   Widget build(BuildContext context) {

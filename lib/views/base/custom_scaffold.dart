@@ -8,6 +8,7 @@ class CustomScaffold extends StatelessWidget {
   final List<Widget> children;
   final String? title;
   final bool hasLeading;
+  final bool showLogo;
   final Widget? trailing;
   final double sidePadding;
   final int tabIndex;
@@ -20,6 +21,7 @@ class CustomScaffold extends StatelessWidget {
     this.trailing,
     this.hasAppbar = true,
     this.hasNavbar = true,
+    this.showLogo = false,
     this.hasLeading = true,
     this.isScrollable = true,
     this.appbarPadding = true,
@@ -38,22 +40,45 @@ class CustomScaffold extends StatelessWidget {
             height: MediaQuery.of(context).size.height,
             fit: BoxFit.fitHeight,
           ),
-          Column(
-            children: [
-              if (hasAppbar)
-                CustomAppBar(
-                  title: title,
-                  hasLeading: hasLeading,
-                  trailing: trailing,
-                  bottomPadding: appbarPadding,
+          Positioned.fill(
+            child: Column(
+              children: [
+                if (hasAppbar)
+                  CustomAppBar(
+                    title: title,
+                    showLogo: showLogo,
+                    hasLeading: hasLeading,
+                    trailing: trailing,
+                  ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      horizontal: sidePadding,
+                    ),
+                    child: isScrollable
+                        ? SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                if (appbarPadding) const SizedBox(height: 30),
+                                ...children,
+                                SafeArea(
+                                  top: false,
+                                  child: SizedBox(height: 72),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Column(
+                            children: [
+                              if (appbarPadding) const SizedBox(height: 30),
+                              ...children,
+                              SafeArea(top: false, child: SizedBox(height: 72)),
+                            ],
+                          ),
+                  ),
                 ),
-              Padding(
-                padding: EdgeInsetsGeometry.symmetric(horizontal: sidePadding),
-                child: isScrollable
-                    ? SingleChildScrollView(child: Column(children: children))
-                    : Column(children: children),
-              ),
-            ],
+              ],
+            ),
           ),
           if (hasNavbar)
             Positioned(

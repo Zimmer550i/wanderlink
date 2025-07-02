@@ -7,6 +7,7 @@ class AppIcons {
   static const String camera = 'assets/icons/camera.svg';
   static const String edit = 'assets/icons/edit.svg';
   static const String email = 'assets/icons/email.svg';
+  static const String earth = 'assets/icons/earth.svg';
   static const String explore = 'assets/icons/explore.svg';
   static const String exploreSelected = 'assets/icons/explore_selected.svg';
   static const String eye = 'assets/icons/eye.svg';
