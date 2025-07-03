@@ -12,6 +12,8 @@ class ProfilePicture extends StatelessWidget {
   final File? imageFile;
   final bool showLoading;
   final bool isEditable;
+  final bool whiteBorder;
+  final double borderWidth;
   final Function(File)? imagePickerCallback;
 
   const ProfilePicture({
@@ -19,8 +21,10 @@ class ProfilePicture extends StatelessWidget {
     this.image,
     this.size = 100,
     this.showLoading = true,
+    this.whiteBorder = false,
     this.isEditable = false,
     this.imagePickerCallback,
+    this.borderWidth = 3.75,
     this.imageFile,
   });
 
@@ -43,14 +47,17 @@ class ProfilePicture extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Container(
-            padding: EdgeInsets.all(3.75),
+            padding: EdgeInsets.all(borderWidth),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              gradient: const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFF6DC3F2), Color(0xFF0289F2)],
-              ),
+              color: Colors.white,
+              gradient: whiteBorder
+                  ? null
+                  : const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0xFF6DC3F2), Color(0xFF0289F2)],
+                    ),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(size),

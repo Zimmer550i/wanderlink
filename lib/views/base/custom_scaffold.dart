@@ -59,7 +59,7 @@ class CustomScaffold extends StatelessWidget {
                         ? SingleChildScrollView(
                             child: Column(
                               children: [
-                                if (appbarPadding) const SizedBox(height: 30),
+                                if (appbarPadding && hasAppbar) const SizedBox(height: 30),
                                 ...children,
                                 SafeArea(
                                   top: false,
@@ -70,7 +70,7 @@ class CustomScaffold extends StatelessWidget {
                           )
                         : Column(
                             children: [
-                              if (appbarPadding) const SizedBox(height: 30),
+                              if (appbarPadding && hasAppbar) const SizedBox(height: 30),
                               ...children,
                               SafeArea(top: false, child: SizedBox(height: 72)),
                             ],

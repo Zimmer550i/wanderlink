@@ -13,6 +13,10 @@ class CountryWidget extends StatelessWidget {
     this.onClick,
   });
 
+  get countryName => AppConstants.countryNames[countryCode] ?? countryCode;
+  get height => 90;
+  get width => 90;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -36,9 +40,7 @@ class CountryWidget extends StatelessWidget {
                 width: 45,
                 child: FittedBox(
                   fit: BoxFit.cover,
-                  child: CustomSvg(
-                    asset: "assets/flags/$countryCode.svg",
-                  ),
+                  child: CustomSvg(asset: "assets/flags/$countryCode.svg"),
                 ),
               ),
             ),
@@ -47,7 +49,11 @@ class CountryWidget extends StatelessWidget {
               AppConstants.countryNames[countryCode] ?? countryCode,
               maxLines: 2,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Color(0xff273430), fontSize: 12, height: 1),
+              style: TextStyle(
+                color: Color(0xff273430),
+                fontSize: 12,
+                height: 1,
+              ),
             ),
             // Text(
             //    countryCode,

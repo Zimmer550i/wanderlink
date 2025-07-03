@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wanderlink/utils/custom_svg.dart';
+import 'package:wanderlink/views/screens/explore/explore.dart';
+import 'package:wanderlink/views/screens/home/home.dart';
 
 class CustomBottomNavbar extends StatefulWidget {
   final int index;
@@ -13,7 +16,11 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
   List<String> assets = ["world", "explore", "social", "profile"];
 
   void handleTabs(int val) {
-    if (val == 0) {}
+    if (val == 0) {
+      Get.off(() => Home());
+    } else if (val == 1) {
+      Get.off(() => Explore());
+    }
   }
 
   @override
