@@ -19,8 +19,16 @@ class _DesignSystemState extends State<DesignSystem> {
       hasAppbar: true,
       hasNavbar: true,
       tabIndex: 1,
-      isScrollable: true,
-      children: [for (int i = 0; i < 50; i++) FlutterLogo()],
+      isScrollable: false,
+      children: [
+        Expanded(
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              return Text(index.toString());
+            },
+          ),
+        ),
+      ],
     );
   }
 }

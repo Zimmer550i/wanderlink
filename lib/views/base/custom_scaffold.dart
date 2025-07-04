@@ -14,6 +14,7 @@ class CustomScaffold extends StatelessWidget {
   final int tabIndex;
   final bool isScrollable;
   final bool appbarPadding;
+  final bool navbarPadding;
   const CustomScaffold({
     super.key,
     required this.children,
@@ -25,7 +26,8 @@ class CustomScaffold extends StatelessWidget {
     this.hasLeading = true,
     this.isScrollable = true,
     this.appbarPadding = true,
-    this.sidePadding = 24,
+    this.navbarPadding = true,
+    this.sidePadding = 0,
     this.tabIndex = 0,
   });
 
@@ -59,20 +61,27 @@ class CustomScaffold extends StatelessWidget {
                         ? SingleChildScrollView(
                             child: Column(
                               children: [
-                                if (appbarPadding && hasAppbar) const SizedBox(height: 30),
+                                if (appbarPadding && hasAppbar)
+                                  const SizedBox(height: 30),
                                 ...children,
-                                SafeArea(
-                                  top: false,
-                                  child: SizedBox(height: 72),
-                                ),
+                                if (navbarPadding)
+                                  SafeArea(
+                                    top: false,
+                                    child: SizedBox(height: 72),
+                                  ),
                               ],
                             ),
                           )
                         : Column(
                             children: [
-                              if (appbarPadding && hasAppbar) const SizedBox(height: 30),
+                              if (appbarPadding && hasAppbar)
+                                const SizedBox(height: 30),
                               ...children,
-                              SafeArea(top: false, child: SizedBox(height: 72)),
+                              if (navbarPadding)
+                                SafeArea(
+                                  top: false,
+                                  child: SizedBox(height: 72),
+                                ),
                             ],
                           ),
                   ),

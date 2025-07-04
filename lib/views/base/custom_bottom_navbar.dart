@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wanderlink/utils/custom_svg.dart';
 import 'package:wanderlink/views/screens/explore/explore.dart';
+import 'package:wanderlink/views/screens/friends/friends.dart';
 import 'package:wanderlink/views/screens/home/home.dart';
 
 class CustomBottomNavbar extends StatefulWidget {
@@ -20,6 +21,8 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
       Get.off(() => Home());
     } else if (val == 1) {
       Get.off(() => Explore());
+    } else if (val == 2) {
+      Get.off(() => Friends());
     }
   }
 
