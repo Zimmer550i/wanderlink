@@ -5,6 +5,7 @@ import 'package:wanderlink/views/base/custom_scaffold.dart';
 import 'package:wanderlink/views/base/custom_search_bar.dart';
 import 'package:wanderlink/views/base/profile_picture.dart';
 import 'package:wanderlink/views/screens/friends/friend_request.dart';
+import 'package:wanderlink/views/screens/friends/leaderboard.dart';
 import 'package:wanderlink/views/screens/friends/messages.dart';
 
 class Friends extends StatelessWidget {
@@ -140,31 +141,37 @@ class Friends extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  height: 38,
-                  width: 38,
-                  decoration: BoxDecoration(
-                    color: Color(0xffE9F5FF),
-                    borderRadius: BorderRadius.circular(12),
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                Get.to(() => Leaderboard());
+              },
+              child: Row(
+                children: [
+                  Container(
+                    height: 38,
+                    width: 38,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE9F5FF),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: CustomSvg(asset: "assets/icons/leaderboard.svg"),
+                    ),
                   ),
-                  child: Center(
-                    child: CustomSvg(asset: "assets/icons/leaderboard.svg"),
+                  const SizedBox(width: 8),
+                  Text(
+                    "Leaderboard",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
+                      color: Color(0xff273430),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  "Leaderboard",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 15,
-                    color: Color(0xff273430),
-                  ),
-                ),
-                Spacer(),
-                CustomSvg(asset: "assets/icons/arrow_right_colored.svg"),
-              ],
+                  Spacer(),
+                  CustomSvg(asset: "assets/icons/arrow_right_colored.svg"),
+                ],
+              ),
             ),
             const SizedBox(height: 16),
             Align(
