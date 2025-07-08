@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:wanderlink/views/base/custom_app_bar.dart';
 import 'package:wanderlink/views/base/custom_bottom_navbar.dart';
@@ -15,6 +17,7 @@ class CustomScaffold extends StatelessWidget {
   final bool isScrollable;
   final bool appbarPadding;
   final bool navbarPadding;
+  final bool enableBlur;
   const CustomScaffold({
     super.key,
     required this.children,
@@ -22,6 +25,7 @@ class CustomScaffold extends StatelessWidget {
     this.trailing,
     this.hasAppbar = true,
     this.hasNavbar = true,
+    this.enableBlur = false,
     this.showLogo = false,
     this.hasLeading = true,
     this.isScrollable = true,
@@ -59,17 +63,17 @@ class CustomScaffold extends StatelessWidget {
                     ),
                     child: isScrollable
                         ? SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                if (appbarPadding && hasAppbar)
-                                  const SizedBox(height: 30),
-                                ...children,
-                                if (navbarPadding)
-                                  SafeArea(
-                                    top: false,
-                                    child: SizedBox(height: 72),
-                                  ),
-                              ],
+                            child: SafeArea(
+                              top: false,
+                              child: Column(
+                                children: [
+                                  if (appbarPadding && hasAppbar)
+                                    const SizedBox(height: 30),
+                                  ...children,
+                                  if (hasNavbar && navbarPadding)
+                                    SizedBox(height: 72),
+                                ],
+                              ),
                             ),
                           )
                         : Column(
@@ -77,7 +81,7 @@ class CustomScaffold extends StatelessWidget {
                               if (appbarPadding && hasAppbar)
                                 const SizedBox(height: 30),
                               ...children,
-                              if (navbarPadding)
+                              if (hasNavbar && navbarPadding)
                                 SafeArea(
                                   top: false,
                                   child: SizedBox(height: 72),
@@ -89,6 +93,8 @@ class CustomScaffold extends StatelessWidget {
               ],
             ),
           ),
+          if (enableBlur)
+            BackdropFilter(filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4), child: Container(),),
           if (hasNavbar)
             Positioned(
               bottom: 0,

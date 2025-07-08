@@ -49,7 +49,8 @@ class _CustomButtonState extends State<CustomButton> {
         padding: EdgeInsets.symmetric(horizontal: widget.padding),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.radius),
-          gradient: widget.isSecondary
+          color: widget.isDisabled ? Color(0xff999999) : null,
+          gradient: widget.isSecondary || widget.isDisabled
               ? null
               : const LinearGradient(
                   begin: Alignment.topCenter,

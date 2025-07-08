@@ -1,11 +1,10 @@
-import 'package:countries_world_map/countries_world_map.dart';
-import 'package:countries_world_map/data/maps/world_map.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wanderlink/utils/app_icons.dart';
 import 'package:wanderlink/utils/custom_svg.dart';
 import 'package:wanderlink/views/base/custom_scaffold.dart';
 import 'package:wanderlink/views/base/custom_search_bar.dart';
+import 'package:wanderlink/views/base/world_map.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -37,27 +36,7 @@ class Home extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: progressBar(0.15),
         ),
-        Expanded(
-          child: InteractiveViewer(
-            maxScale: 4,
-            minScale: 1,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 35),
-              child: SimpleMap(
-                instructions: SMapWorld.instructions,
-                defaultColor: Color(0xffA6A6A6),
-                countryBorder: CountryBorder(color: Colors.white, width: 0.5),
-                colors: {
-                  "ru": Color(0xffFC9300),
-                  "cn": Color(0xffFC9300),
-                  "au": Color(0xffFC9300),
-                  "gl": Color(0xffFC9300),
-                  "in": Color(0xffFC9300),
-                },
-              ),
-            ),
-          ),
-        ),
+        Expanded(child: WorldMap(myCountries: ["ru", "cn", "br"])),
         Column(
           children: [
             SingleChildScrollView(

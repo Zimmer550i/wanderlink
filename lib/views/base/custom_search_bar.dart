@@ -11,8 +11,8 @@ class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({
     super.key,
     this.hintText,
-    this.height = 60,
-    this.iconSize = 24,
+    this.height = 46,
+    this.iconSize = 19,
     this.controller,
     this.onChanged,
   });
@@ -21,7 +21,7 @@ class CustomSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 19),
       decoration: BoxDecoration(
         color: Colors.white.withAlpha(230),
         borderRadius: BorderRadius.circular(99),
@@ -41,8 +41,9 @@ class CustomSearchBar extends StatelessWidget {
               onChanged: onChanged,
               decoration: InputDecoration(
                 border: InputBorder.none,
+                isDense: true,
                 hintText: hintText ?? "Search Country . . .",
-                hintStyle: TextStyle(fontSize: 14, color: Color(0xffACACAC)),
+                hintStyle: TextStyle(fontSize: 11, color: Color(0xffACACAC)),
               ),
               style: TextStyle(
                 fontWeight: FontWeight.w500,

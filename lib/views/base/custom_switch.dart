@@ -3,7 +3,15 @@ import 'package:flutter/material.dart';
 class CustomSwitch extends StatelessWidget {
   final bool value;
   final void Function() onChange;
-  const CustomSwitch({super.key, required this.value, required this.onChange});
+  final Color color;
+  final bool isOval;
+  const CustomSwitch({
+    super.key,
+    required this.value,
+    required this.onChange,
+    this.color = const Color(0xff5CF198),
+    this.isOval = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +27,7 @@ class CustomSwitch extends StatelessWidget {
             height: 11,
             width: 33,
             decoration: BoxDecoration(
-              color: value ? Color(0xff5CF198) : Color(0xff777777),
+              color: value ? color : Color(0xff777777),
               borderRadius: BorderRadius.circular(99),
             ),
           ),
@@ -30,16 +38,18 @@ class CustomSwitch extends StatelessWidget {
             child: AnimatedContainer(
               duration: Duration(milliseconds: 200),
               height: 18,
-              width: 22,
+              width: isOval ? 22 : 18,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.horizontal(
-                  left: Radius.elliptical(11, 9),
-                  right: Radius.elliptical(11, 9),
-                ),
+                borderRadius: isOval
+                    ? BorderRadius.horizontal(
+                        left: Radius.elliptical(11, 9),
+                        right: Radius.elliptical(11, 9),
+                      )
+                    : BorderRadius.circular(99),
                 border: Border.all(
                   width: 2,
-                  color: value ? Color(0xff5CF198) : Color(0xff777777),
+                  color: value ? color : Color(0xff777777),
                 ),
               ),
             ),
