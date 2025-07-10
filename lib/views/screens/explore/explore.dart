@@ -16,6 +16,7 @@ class Explore extends StatefulWidget {
 
 class _ExploreState extends State<Explore> {
   int sort = 2;
+  bool blurEnabled = false;
   Map<String, List<CountryWidget>> countries = {};
 
   @override
@@ -27,6 +28,7 @@ class _ExploreState extends State<Explore> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      enableBlur: blurEnabled,
       hasLeading: false,
       sidePadding: 0,
       tabIndex: 1,
@@ -86,6 +88,17 @@ class _ExploreState extends State<Explore> {
       onSelected: (value) {
         setState(() {
           sort = value;
+          blurEnabled = false;
+        });
+      },
+      onOpened: () {
+        setState(() {
+          blurEnabled = true;
+        });
+      },
+      onCanceled: () {
+        setState(() {
+          blurEnabled = false;
         });
       },
       itemBuilder: (context) => <PopupMenuEntry>[

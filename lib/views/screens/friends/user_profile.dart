@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:wanderlink/utils/custom_svg.dart';
 import 'package:wanderlink/views/base/country_widget.dart';
 import 'package:wanderlink/views/base/custom_button.dart';
+import 'package:wanderlink/views/base/custom_networked_image.dart';
 import 'package:wanderlink/views/base/custom_scaffold.dart';
 import 'package:wanderlink/views/base/custom_switch.dart';
 import 'package:wanderlink/views/base/profile_picture.dart';
 import 'package:wanderlink/views/base/world_map.dart';
+import 'package:wanderlink/views/screens/explore/post_details.dart';
 import 'package:wanderlink/views/screens/friends/inbox.dart';
 
 class UserProfile extends StatefulWidget {
@@ -334,11 +336,19 @@ class _UserProfileState extends State<UserProfile> {
                   spacing: 2,
                   runSpacing: 2,
                   children: [
-                    for (int i = 0; i < 7; i++)
-                      Image.network(
-                        "https://picsum.photos/1200/1200",
-                        width: MediaQuery.of(context).size.width / 3 - 1.5,
-                        fit: BoxFit.cover,
+                    for (int i = 0; i < 70; i++)
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(
+                            () => PostDetails(url: "profile$i"),
+                          );
+                        },
+                        child: CustomNetworkedImage(
+                          randomSeed: "profile$i",
+                          radius: 0,
+                          height: MediaQuery.of(context).size.width / 3 - 1.5,
+                          width: MediaQuery.of(context).size.width / 3 - 1.5,
+                        ),
                       ),
                   ],
                 ),
@@ -625,9 +635,7 @@ class _UserProfileState extends State<UserProfile> {
           enableBlur = false;
         });
         if (value == 0) {
-        } else if (value == 1) {
-          
-        }
+        } else if (value == 1) {}
       },
       onCanceled: () {
         setState(() {

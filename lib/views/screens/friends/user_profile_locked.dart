@@ -108,7 +108,7 @@ class UserProfileLocked extends StatelessWidget {
           children: [
             Container(
               height: 38,
-              width: MediaQuery.of(context).size.width / 2.6,
+              width: 145,
               padding: EdgeInsets.symmetric(horizontal: 12),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -141,13 +141,15 @@ class UserProfileLocked extends StatelessWidget {
                             color: Color(0xff0289F2),
                           ),
                         ),
-                        Text(
-                          "United States",
-                          style: TextStyle(
-                            fontFamily: "nunito",
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11,
-                            color: Color(0xff273430),
+                        FittedBox(
+                          child: Text(
+                            "United States",
+                            style: TextStyle(
+                              fontFamily: "nunito",
+                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                              color: Color(0xff273430),
+                            ),
                           ),
                         ),
                       ],
@@ -158,7 +160,7 @@ class UserProfileLocked extends StatelessWidget {
             ),
             Container(
               height: 38,
-              width: MediaQuery.of(context).size.width / 2.6,
+              width: 145,
               padding: EdgeInsets.symmetric(horizontal: 12),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -191,13 +193,15 @@ class UserProfileLocked extends StatelessWidget {
                             color: Color(0xff0289F2),
                           ),
                         ),
-                        Text(
-                          "United States",
-                          style: TextStyle(
-                            fontFamily: "nunito",
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11,
-                            color: Color(0xff273430),
+                        FittedBox(
+                          child: Text(
+                            "United States",
+                            style: TextStyle(
+                              fontFamily: "nunito",
+                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                              color: Color(0xff273430),
+                            ),
                           ),
                         ),
                       ],

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wanderlink/views/base/custom_app_bar.dart';
 import 'package:wanderlink/views/base/custom_bottom_navbar.dart';
 
@@ -18,6 +19,7 @@ class CustomScaffold extends StatelessWidget {
   final bool appbarPadding;
   final bool navbarPadding;
   final bool enableBlur;
+  final bool floatingBackButton;
   const CustomScaffold({
     super.key,
     required this.children,
@@ -33,6 +35,7 @@ class CustomScaffold extends StatelessWidget {
     this.navbarPadding = true,
     this.sidePadding = 0,
     this.tabIndex = 0,
+    this.floatingBackButton = false,
   });
 
   @override
@@ -93,8 +96,41 @@ class CustomScaffold extends StatelessWidget {
               ],
             ),
           ),
+          if (floatingBackButton)
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 24),
+                child: InkWell(
+                  onTap: () => hasLeading ? Get.back() : null,
+                  borderRadius: BorderRadius.circular(999),
+                  child: SizedBox(
+                    height: 48,
+                    width: 48,
+                    child: hasLeading
+                        ? Center(
+                            child: Container(
+                              height: 48,
+                              width: 48,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withAlpha(204),
+                              ),
+                              child: Icon(
+                                Icons.arrow_back_rounded,
+                                color: Colors.black,
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                  ),
+                ),
+              ),
+            ),
           if (enableBlur)
-            BackdropFilter(filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4), child: Container(),),
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+              child: Container(),
+            ),
           if (hasNavbar)
             Positioned(
               bottom: 0,

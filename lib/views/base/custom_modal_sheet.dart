@@ -105,7 +105,7 @@ class CustomModalSheetState extends State<CustomModalSheet>
                 type: MaterialType.transparency,
                 child: Container(
                   constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height / 1.77,
+                    // maxHeight: MediaQuery.of(context).size.height / 1.77,
                   ),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -113,10 +113,12 @@ class CustomModalSheetState extends State<CustomModalSheet>
                       top: Radius.circular(50),
                     ),
                     border: Border.all(
-                      color: Colors.black.withAlpha((8*2.55).toInt())
-                    )
+                      color: Colors.black.withAlpha((8 * 2.55).toInt()),
+                    ),
                   ),
-                  child: widget.overlay,
+                  child: SafeArea(
+                    top: false,
+                    child: widget.overlay ?? Container()),
                 ),
               ),
             ),
