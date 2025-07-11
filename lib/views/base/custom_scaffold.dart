@@ -12,6 +12,7 @@ class CustomScaffold extends StatelessWidget {
   final bool hasLeading;
   final bool showLogo;
   final Widget? trailing;
+  final Widget? leading;
   final double sidePadding;
   final int tabIndex;
   final bool isScrollable;
@@ -24,6 +25,7 @@ class CustomScaffold extends StatelessWidget {
     required this.children,
     this.title,
     this.trailing,
+    this.leading,
     this.hasAppbar = true,
     this.hasNavbar = true,
     this.enableBlur = false,
@@ -58,6 +60,7 @@ class CustomScaffold extends StatelessWidget {
                     showLogo: showLogo,
                     hasLeading: hasLeading,
                     trailing: trailing,
+                    leading: leading,
                   ),
                 Expanded(
                   child: Padding(

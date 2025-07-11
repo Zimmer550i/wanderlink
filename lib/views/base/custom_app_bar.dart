@@ -7,6 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final bool hasLeading;
   final Widget? trailing;
+  final Widget? leading;
   final bool bottomPadding;
   final bool showLogo;
   const CustomAppBar({
@@ -16,6 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.bottomPadding = false,
     this.showLogo = false,
     this.trailing,
+    this.leading,
   });
 
   @override
@@ -54,7 +56,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         ),
                       )
-                    : const SizedBox(),
+                    : SizedBox(child: leading),
               ),
             ),
             Spacer(),
@@ -65,10 +67,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22),
                   ),
             Spacer(),
-            trailing ?? SizedBox(
-              height: 48,
-              width: 48,
-            ),
+            trailing ?? SizedBox(height: 48, width: 48),
             const SizedBox(width: 24),
           ],
         ),

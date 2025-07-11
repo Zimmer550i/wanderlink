@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wanderlink/utils/app_icons.dart';
 import 'package:wanderlink/utils/custom_svg.dart';
 import 'package:wanderlink/views/base/custom_scaffold.dart';
 import 'package:wanderlink/views/base/custom_search_bar.dart';
 import 'package:wanderlink/views/base/world_map.dart';
+import 'package:wanderlink/views/screens/home/world_summery.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -15,6 +17,12 @@ class Home extends StatelessWidget {
       isScrollable: false,
       hasLeading: false,
       showLogo: true,
+      leading: GestureDetector(
+        onTap: () {
+          Get.to(() => WorldSummery());
+        },
+        child: CustomSvg(asset: "assets/icons/share.svg"),
+      ),
       trailing: Container(
         height: 48,
         width: 48,
