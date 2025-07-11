@@ -116,9 +116,14 @@ class CustomModalSheetState extends State<CustomModalSheet>
                       color: Colors.black.withAlpha((8 * 2.55).toInt()),
                     ),
                   ),
-                  child: SafeArea(
-                    top: false,
-                    child: widget.overlay ?? Container()),
+                  child: AnimatedPadding(
+                    padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom + MediaQuery.of(context).viewPadding.bottom,
+                    ),
+                    duration: Duration(milliseconds: 100),
+                    curve: Curves.ease,
+                    child: widget.overlay ?? Container(),
+                  ),
                 ),
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wanderlink/utils/custom_svg.dart';
+import 'package:wanderlink/views/base/custom_networked_image.dart';
 import 'package:wanderlink/views/base/custom_scaffold.dart';
 import 'package:wanderlink/views/base/profile_picture.dart';
 
@@ -166,30 +167,11 @@ class _InboxState extends State<Inbox> {
                           topLeft: Radius.circular(hasPrev ? 4 : 18),
                           bottomLeft: Radius.circular(hasNext ? 4 : 18),
                         ),
-                        child: Image.network(
-                          img,
-                          fit: BoxFit.contain,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            }
-
-                            double? progress =
-                                loadingProgress.expectedTotalBytes != null &&
-                                    loadingProgress.expectedTotalBytes! > 0
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                : null;
-
-                            if (progress == null || progress < 1) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              return child;
-                            }
-                          },
+                        child: CustomNetworkedImage(
+                          url: img,
+                          radius: 0,
+                          width: 221,
+                          height: 121,
                         ),
                       ),
               ],
@@ -247,30 +229,11 @@ class _InboxState extends State<Inbox> {
                           topRight: Radius.circular(hasPrev ? 4 : 18),
                           bottomRight: Radius.circular(hasNext ? 4 : 18),
                         ),
-                        child: Image.network(
-                          img,
-                          fit: BoxFit.contain,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            }
-
-                            double? progress =
-                                loadingProgress.expectedTotalBytes != null &&
-                                    loadingProgress.expectedTotalBytes! > 0
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                : null;
-
-                            if (progress == null || progress < 1) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              return child;
-                            }
-                          },
+                        child: CustomNetworkedImage(
+                          url: img,
+                          radius: 0,
+                          width: 221,
+                          height: 121,
                         ),
                       ),
               ],

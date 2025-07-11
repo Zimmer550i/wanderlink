@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wanderlink/views/base/custom_app_bar.dart';
@@ -41,6 +40,7 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: isScrollable,
       backgroundColor: Color(0xff0F9BE9),
       body: Stack(
         children: [
@@ -132,8 +132,10 @@ class CustomScaffold extends StatelessWidget {
               child: Container(),
             ),
           if (hasNavbar)
-            Positioned(
-              bottom: 0,
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.easeInOut,
+              bottom: MediaQuery.of(context).viewInsets.bottom == 0 ? 0 : -100,
               left: 0,
               right: 0,
               child: CustomBottomNavbar(index: tabIndex),
