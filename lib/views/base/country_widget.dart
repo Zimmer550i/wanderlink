@@ -5,12 +5,14 @@ import 'package:wanderlink/utils/custom_svg.dart';
 class CountryWidget extends StatelessWidget {
   final String countryCode;
   final bool isSelected;
+  final bool showShadow;
   final void Function()? onClick;
   const CountryWidget({
     super.key,
     required this.countryCode,
     required this.isSelected,
     this.onClick,
+    this.showShadow = false,
   });
 
   get countryName => AppConstants.countryNames[countryCode] ?? countryCode;
@@ -29,6 +31,14 @@ class CountryWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected ? Color(0xffF5F5F5) : Colors.white,
           borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            if(showShadow)
+            BoxShadow(
+              offset: Offset(0, 4),
+              color: Colors.black.withAlpha((10*2.55).toInt()),
+              blurRadius: 4
+            )
+          ]
         ),
         child: Column(
           children: [

@@ -3,81 +3,114 @@ import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wanderlink/utils/app_icons.dart';
 import 'package:wanderlink/utils/custom_svg.dart';
+import 'package:wanderlink/views/base/country_widget.dart';
+import 'package:wanderlink/views/base/custom_modal_sheet.dart';
 import 'package:wanderlink/views/base/custom_scaffold.dart';
 import 'package:wanderlink/views/base/custom_search_bar.dart';
 import 'package:wanderlink/views/base/world_map.dart';
+import 'package:wanderlink/views/screens/explore/explore.dart';
 import 'package:wanderlink/views/screens/home/world_summery.dart';
+import 'package:wanderlink/views/screens/modal_sheets/country_picker.dart';
+import 'package:wanderlink/views/screens/modal_sheets/record_country.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  Widget? overlay;
+
+  @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      isScrollable: false,
-      hasLeading: false,
-      showLogo: true,
-      leading: GestureDetector(
-        onTap: () {
-          Get.to(() => WorldSummery());
-        },
-        child: CustomSvg(asset: "assets/icons/share.svg"),
-      ),
-      trailing: Container(
-        height: 48,
-        width: 48,
-        decoration: BoxDecoration(
-          color: Colors.white.withAlpha(200),
-          border: Border.all(color: Colors.white.withAlpha(50)),
-          shape: BoxShape.circle,
+    return CustomModalSheet(
+      overlay: overlay,
+      showModal: overlay != null,
+      onTapOutside: () {
+        setState(() {
+          overlay = null;
+        });
+      },
+      child: CustomScaffold(
+        isScrollable: false,
+        hasLeading: false,
+        showLogo: true,
+        leading: GestureDetector(
+          onTap: () {
+            Get.to(() => WorldSummery());
+          },
+          child: CustomSvg(asset: "assets/icons/share.svg"),
         ),
-        child: Center(child: CustomSvg(asset: AppIcons.addNew)),
-      ),
-      sidePadding: 0,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: CustomSearchBar(),
-        ),
-        const SizedBox(height: 35),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: progressBar(0.15),
-        ),
-        Expanded(child: WorldMap(myCountries: ["ru", "cn", "br"])),
-        Column(
-          children: [
-            SingleChildScrollView(
-              clipBehavior: Clip.none,
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                spacing: 10,
-                children: [
-                  progressCard("Countries", 9, 17),
-                  progressCard("Continents", 2, 7),
-                ],
-              ),
+        trailing: GestureDetector(
+          onTap: () {
+            setState(() {
+              overlay = RecordACountry();
+            });
+          },
+          child: Container(
+            height: 48,
+            width: 48,
+            decoration: BoxDecoration(
+              color: Colors.white.withAlpha(200),
+              border: Border.all(color: Colors.white.withAlpha(50)),
+              shape: BoxShape.circle,
             ),
-            const SizedBox(height: 20),
-            SingleChildScrollView(
-              clipBehavior: Clip.none,
-              scrollDirection: Axis.horizontal,
-              controller: ScrollController(
-                initialScrollOffset: MediaQuery.of(context).size.width / 5,
-              ),
-              child: Row(
-                spacing: 10,
-                children: [
-                  progressCard("Asia", 1, 30),
-                  progressCard("Europe", 18, 55),
-                  progressCard("Africa", 5, 40),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-          ],
+            child: Center(child: CustomSvg(asset: AppIcons.addNew)),
+          ),
         ),
-      ],
+        sidePadding: 0,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: GestureDetector(
+              onTap: () {
+                Get.off(() => Explore(autoFocus: true));
+              },
+              child: AbsorbPointer(child: CustomSearchBar()),
+            ),
+          ),
+          const SizedBox(height: 35),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: progressBar(0.15),
+          ),
+          Expanded(child: WorldMap(myCountries: ["ru", "cn", "br"])),
+          Column(
+            children: [
+              SingleChildScrollView(
+                clipBehavior: Clip.none,
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  spacing: 10,
+                  children: [
+                    progressCard("Countries", 9, 17),
+                    progressCard("Continents", 2, 7),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              SingleChildScrollView(
+                clipBehavior: Clip.none,
+                scrollDirection: Axis.horizontal,
+                controller: ScrollController(
+                  initialScrollOffset: MediaQuery.of(context).size.width / 5,
+                ),
+                child: Row(
+                  spacing: 10,
+                  children: [
+                    progressCard("Asia", 1, 30),
+                    progressCard("Europe", 18, 55),
+                    progressCard("Africa", 5, 40),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -254,6 +287,57 @@ class Home extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class RecordACountry extends StatefulWidget {
+  const RecordACountry({super.key});
+
+  @override
+  State<RecordACountry> createState() => _RecordACountryState();
+}
+
+class _RecordACountryState extends State<RecordACountry> {
+  String? selectedCountry;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 30, left: 24, right: 24),
+      child: Column(
+        children: [
+          Text(
+            "RECORD A NEW COUNTRY",
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 13,
+              color: Color(0xff0289F2),
+            ),
+          ),
+          if (selectedCountry == null)
+            Padding(
+              padding: const EdgeInsets.only(top: 24),
+              child: CountryPicker(
+                onSubmit: (country) {
+                  setState(() {
+                    selectedCountry = country;
+                  });
+                },
+              ),
+            ),
+          if (selectedCountry != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 8, bottom: 20),
+              child: CountryWidget(
+                countryCode: selectedCountry!,
+                isSelected: false,
+                showShadow: true,
+              ),
+            ),
+          if (selectedCountry != null) RecordCountry(),
+        ],
+      ),
     );
   }
 }

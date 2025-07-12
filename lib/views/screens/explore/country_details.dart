@@ -337,7 +337,10 @@ class _CountryDetailsState extends State<CountryDetails> {
           GestureDetector(
             onTap: () {
               setState(() {
-                overlay = RecordCountry();
+                overlay = Padding(
+                  padding: const EdgeInsets.only(top: 33, left: 40, right: 40),
+                  child: RecordCountry(),
+                );
               });
             },
             child: Container(

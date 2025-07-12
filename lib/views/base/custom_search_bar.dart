@@ -6,6 +6,7 @@ class CustomSearchBar extends StatelessWidget {
   final String? hintText;
   final double height;
   final double iconSize;
+  final bool autoFocus;
   final TextEditingController? controller;
   final void Function(String)? onChanged;
   const CustomSearchBar({
@@ -13,6 +14,7 @@ class CustomSearchBar extends StatelessWidget {
     this.hintText,
     this.height = 46,
     this.iconSize = 19,
+    this.autoFocus = false,
     this.controller,
     this.onChanged,
   });
@@ -39,6 +41,7 @@ class CustomSearchBar extends StatelessWidget {
             child: TextField(
               controller: controller,
               onChanged: onChanged,
+              autofocus: autoFocus,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 isDense: true,

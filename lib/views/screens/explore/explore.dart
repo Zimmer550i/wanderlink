@@ -8,7 +8,8 @@ import 'package:wanderlink/views/base/custom_search_bar.dart';
 import 'package:wanderlink/views/screens/explore/country_details.dart';
 
 class Explore extends StatefulWidget {
-  const Explore({super.key});
+  final bool autoFocus;
+  const Explore({super.key, this.autoFocus = false});
 
   @override
   State<Explore> createState() => _ExploreState();
@@ -38,6 +39,7 @@ class _ExploreState extends State<Explore> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: CustomSearchBar(
+            autoFocus: widget.autoFocus,
             onChanged: (val) => setState(() {
               getCountries(val);
             }),

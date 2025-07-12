@@ -566,56 +566,61 @@ class _CountryPickerWidgetState extends State<CountryPickerWidget> {
         const SizedBox(height: 40),
         Text("Country From", style: TextStyle(fontSize: 14)),
         const SizedBox(height: 24),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 48),
-          child: CustomSearchBar(
-            height: 50,
-            iconSize: 20,
-            onChanged: (p0) {
-              setState(() {
-                searchText = p0;
-              });
-            },
-          ),
-        ),
-        const SizedBox(height: 36),
-        Expanded(
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                child: SafeArea(
-                  top: false,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Wrap(
-                      alignment: WrapAlignment.spaceEvenly,
-                      children: [
-                        for (var i in AppConstants.countryNames.keys)
-                          if (searchQuery(i))
-                            CountryWidget(
-                              countryCode: i,
-                              isSelected: i == current,
-                              onClick: () {
-                                setState(() {
-                                  current = i;
-                                  widget.onClick(i);
-                                });
-                              },
-                            ),
-                        const SizedBox(height: 40, width: double.infinity),
-                      ],
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 48),
+              child: CustomSearchBar(
+                height: 50,
+                iconSize: 20,
+                onChanged: (p0) {
+                  setState(() {
+                    searchText = p0;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(height: 36),
+            SizedBox(
+              height: MediaQuery.of(context).size.height/3,
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: SafeArea(
+                      top: false,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Wrap(
+                          alignment: WrapAlignment.spaceEvenly,
+                          children: [
+                            for (var i in AppConstants.countryNames.keys)
+                              if (searchQuery(i))
+                                CountryWidget(
+                                  countryCode: i,
+                                  isSelected: i == current,
+                                  onClick: () {
+                                    setState(() {
+                                      current = i;
+                                      widget.onClick(i);
+                                    });
+                                  },
+                                ),
+                            const SizedBox(height: 40, width: double.infinity),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  Positioned(
+                    left: 60,
+                    right: 60,
+                    bottom: MediaQuery.of(context).viewPadding.bottom,
+                    child: CustomButton(text: "Save", onTap: widget.clearOverlay),
+                  ),
+                ],
               ),
-              Positioned(
-                left: 60,
-                right: 60,
-                bottom: MediaQuery.of(context).viewPadding.bottom,
-                child: CustomButton(text: "Save", onTap: widget.clearOverlay),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );
