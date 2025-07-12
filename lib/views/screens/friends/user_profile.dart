@@ -10,9 +10,11 @@ import 'package:wanderlink/views/base/profile_picture.dart';
 import 'package:wanderlink/views/base/world_map.dart';
 import 'package:wanderlink/views/screens/explore/post_details.dart';
 import 'package:wanderlink/views/screens/friends/inbox.dart';
+import 'package:wanderlink/views/screens/settings/settings.dart';
 
 class UserProfile extends StatefulWidget {
-  const UserProfile({super.key});
+  final bool myProfile;
+  const UserProfile({super.key, this.myProfile = false});
 
   @override
   State<UserProfile> createState() => _UserProfileState();
@@ -26,30 +28,50 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      hasNavbar: false,
+      hasNavbar: widget.myProfile,
       enableBlur: enableBlur,
-      trailing: Row(
-        spacing: 6,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Get.to(() => Inbox());
-            },
-            child: Container(
-              height: 48,
-              width: 48,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
+      hasLeading: !widget.myProfile,
+      appbarPadding: !widget.myProfile,
+      tabIndex: 3,
+      trailing: widget.myProfile
+          ? GestureDetector(
+              onTap: () {
+                Get.to(() => Settings());
+              },
+              child: Container(
+                height: 48,
+                width: 48,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: CustomSvg(asset: "assets/icons/settings.svg"),
+                ),
               ),
-              child: Center(
-                child: CustomSvg(asset: "assets/icons/message.svg"),
-              ),
+            )
+          : Row(
+              spacing: 6,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => Inbox());
+                  },
+                  child: Container(
+                    height: 48,
+                    width: 48,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: CustomSvg(asset: "assets/icons/message.svg"),
+                    ),
+                  ),
+                ),
+                actionButton(),
+              ],
             ),
-          ),
-          actionButton(),
-        ],
-      ),
       children: [
         Row(
           children: [
@@ -244,39 +266,40 @@ class _UserProfileState extends State<UserProfile> {
           ],
         ),
         const SizedBox(height: 13),
-        compare
-            ? CustomButton(
-                text: "Follow",
-                width: 230,
-                leading: "assets/icons/follow.svg",
-              )
-            : Container(
-                height: 40,
-                width: 230,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(99),
-                  border: Border.all(color: Color(0xffE3E3E3)),
-                ),
-                child: Row(
-                  spacing: 12,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomSvg(
-                      asset: "assets/icons/follow.svg",
-                      color: Colors.black,
-                    ),
-                    Text(
-                      "Following",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13,
-                        color: Color(0xff090909),
+        if (!widget.myProfile)
+          compare
+              ? CustomButton(
+                  text: "Follow",
+                  width: 230,
+                  leading: "assets/icons/follow.svg",
+                )
+              : Container(
+                  height: 40,
+                  width: 230,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(99),
+                    border: Border.all(color: Color(0xffE3E3E3)),
+                  ),
+                  child: Row(
+                    spacing: 12,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomSvg(
+                        asset: "assets/icons/follow.svg",
+                        color: Colors.black,
                       ),
-                    ),
-                  ],
+                      Text(
+                        "Following",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: Color(0xff090909),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
         const SizedBox(height: 24),
         Container(
           width: 145,
@@ -339,9 +362,7 @@ class _UserProfileState extends State<UserProfile> {
                     for (int i = 0; i < 70; i++)
                       GestureDetector(
                         onTap: () {
-                          Get.to(
-                            () => PostDetails(url: "profile$i"),
-                          );
+                          Get.to(() => PostDetails(url: "profile$i"));
                         },
                         child: CustomNetworkedImage(
                           randomSeed: "profile$i",

@@ -26,7 +26,7 @@ class CustomButton extends StatefulWidget {
     this.isSecondary = false,
     this.isLoading = false,
     this.isDisabled = false,
-    this.fontSize = 16,
+    this.fontSize = 17,
     this.iconSize = 24,
     this.height = 40,
     this.width = double.infinity,
@@ -88,7 +88,7 @@ class _CustomButtonState extends State<CustomButton> {
                     widget.text,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 17,
+                      fontSize: widget.fontSize,
                       color: Colors.white,
                     ),
                   ),
