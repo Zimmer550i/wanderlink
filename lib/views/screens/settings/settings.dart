@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:wanderlink/utils/custom_svg.dart';
 import 'package:wanderlink/views/base/custom_scaffold.dart';
-import 'package:wanderlink/views/screens/design_system.dart';
+import 'package:wanderlink/views/screens/auth/create_profile.dart';
+import 'package:wanderlink/views/screens/settings/about_us.dart';
 import 'package:wanderlink/views/screens/settings/friends_and_followers.dart';
+import 'package:wanderlink/views/screens/settings/help_center.dart';
 import 'package:wanderlink/views/screens/settings/my_countries.dart';
 import 'package:wanderlink/views/screens/settings/preferences.dart';
 
@@ -16,7 +18,7 @@ class Settings extends StatelessWidget {
       tabIndex: 3,
       title: "Settings",
       children: [
-        const SizedBox(height: 40,),
+        const SizedBox(height: 40),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 22),
           child: Container(
@@ -36,15 +38,23 @@ class Settings extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(height: 8),
-                  options("pen", "Profile Settings", DesignSystem()),
+                  options(
+                    "pen",
+                    "Profile Settings",
+                    CreateProfile(editProfile: true),
+                  ),
                   options("world", "My Countries", MyCountries()),
-                  options("social", "Friends and Followers", FriendsAndFollowers()),
+                  options(
+                    "social",
+                    "Friends and Followers",
+                    FriendsAndFollowers(),
+                  ),
                   options("bell", "Preferences", Preferences()),
-                  options("about", "About Us", DesignSystem()),
+                  options("about", "About Us", AboutUs()),
                   options(
                     "help",
                     "Help Centre",
-                    DesignSystem(),
+                    HelpCenter(),
                     hasBorder: false,
                   ),
                 ],

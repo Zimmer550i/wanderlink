@@ -10,6 +10,7 @@ import 'package:wanderlink/views/base/profile_picture.dart';
 import 'package:wanderlink/views/base/world_map.dart';
 import 'package:wanderlink/views/screens/explore/post_details.dart';
 import 'package:wanderlink/views/screens/friends/inbox.dart';
+import 'package:wanderlink/views/screens/settings/report_form.dart';
 import 'package:wanderlink/views/screens/settings/settings.dart';
 
 class UserProfile extends StatefulWidget {
@@ -656,7 +657,8 @@ class _UserProfileState extends State<UserProfile> {
           enableBlur = false;
         });
         if (value == 0) {
-        } else if (value == 1) {}
+          Get.to(() => ReportForm());
+        }
       },
       onCanceled: () {
         setState(() {

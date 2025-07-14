@@ -19,7 +19,8 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:wanderlink/views/screens/home/home.dart';
 
 class CreateProfile extends StatefulWidget {
-  const CreateProfile({super.key});
+  final bool editProfile;
+  const CreateProfile({super.key, this.editProfile = false});
 
   @override
   State<CreateProfile> createState() => _CreateProfileState();
@@ -48,7 +49,7 @@ class _CreateProfileState extends State<CreateProfile> {
       onTapOutside: clearOverlay,
       child: CustomScaffold(
         hasNavbar: false,
-        title: "Create your profile",
+        title: widget.editProfile ? "Edit Profile" : "Create your profile",
         children: [
           Row(
             children: [
@@ -120,139 +121,32 @@ class _CreateProfileState extends State<CreateProfile> {
             ],
           ),
           const SizedBox(height: 50),
-          Container(
-            padding: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(22),
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(0, 4),
-                  blurRadius: 10,
-                  color: Colors.black12,
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      "Name",
-                      style: TextStyle(
-                        fontFamily: "ROBOTO",
-                        fontWeight: FontWeight.w500,
-                        color: Color(0x4d000000),
-                      ),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        textDirection: TextDirection.rtl,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13,
-                          color: Color(0xff273430),
-                        ),
-                        cursorColor: Color(0xff273430),
-                        decoration: InputDecoration(border: InputBorder.none),
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  decoration: BoxDecoration(color: Color(0x80c4c4c4)),
-                ),
-                SizedBox(
-                  height: 48,
-                  child: Row(
-                    children: [
-                      Text(
-                        "Email",
-                        style: TextStyle(
-                          fontFamily: "ROBOTO",
-                          fontWeight: FontWeight.w500,
-                          color: Color(0x4d000000),
-                        ),
-                      ),
-                      Spacer(),
-                      Text(
-                        "wasiul0491@gmail.com",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13,
-                          color: Color(0xff273430),
-                        ),
-                      ),
-                    ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(22),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 4),
+                    blurRadius: 10,
+                    color: Colors.black12,
                   ),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  decoration: BoxDecoration(color: Color(0x80c4c4c4)),
-                ),
-                SizedBox(
-                  height: 48,
-                  child: Row(
+                ],
+              ),
+              child: Column(
+                children: [
+                  Row(
                     children: [
                       Text(
-                        "Phone Number",
+                        "Name",
                         style: TextStyle(
                           fontFamily: "ROBOTO",
                           fontWeight: FontWeight.w500,
                           color: Color(0x4d000000),
                         ),
-                      ),
-                      CountryCodePicker(
-                        showFlag: false,
-                        showFlagDialog: true,
-                        headerText: "Pick a country",
-                        padding: EdgeInsetsGeometry.only(),
-                        pickerStyle: PickerStyle.bottomSheet,
-                        dialogSize: Size(
-                          double.infinity,
-                          MediaQuery.of(context).size.height / 2,
-                        ),
-                        boxDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.black.withAlpha((8 * 2.55).toInt()),
-                          ),
-                        ),
-                        textStyle: TextStyle(
-                          fontSize: 13,
-                          color: Color(0xff273430),
-                          height: 1,
-                        ),
-                        dialogTextStyle: TextStyle(
-                          fontSize: 13,
-                          color: Color(0xff273430),
-                          height: 1,
-                        ),
-                        searchDecoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Search a country",
-                          hintStyle: TextStyle(
-                            fontSize: 14,
-                            color: Color(0xffACACAC),
-                          ),
-                        ),
-                      ),
-                      Transform.translate(
-                        offset: Offset(-7, 0),
-                        child: CustomSvg(
-                          asset: AppIcons.arrowDown,
-                          width: 10,
-                          height: 4,
-                        ),
-                      ),
-                      Container(
-                        height: 24,
-                        width: 1,
-                        decoration: BoxDecoration(color: Color(0x80c4c4c4)),
                       ),
                       Expanded(
                         child: TextField(
@@ -268,27 +162,17 @@ class _CreateProfileState extends State<CreateProfile> {
                       ),
                     ],
                   ),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  decoration: BoxDecoration(color: Color(0x80c4c4c4)),
-                ),
-                InkWell(
-                  onTap: () async {
-                    birthDate = await showDatePicker(
-                      context: context,
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime(2050),
-                    );
-                    setState(() {});
-                  },
-                  child: SizedBox(
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    decoration: BoxDecoration(color: Color(0x80c4c4c4)),
+                  ),
+                  SizedBox(
                     height: 48,
                     child: Row(
                       children: [
                         Text(
-                          "Date of birth",
+                          "Email",
                           style: TextStyle(
                             fontFamily: "ROBOTO",
                             fontWeight: FontWeight.w500,
@@ -297,47 +181,248 @@ class _CreateProfileState extends State<CreateProfile> {
                         ),
                         Spacer(),
                         Text(
-                          birthDate == null
-                              ? ""
-                              : Formatter.dateFormatter(birthDate!),
+                          "wasiul0491@gmail.com",
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 13,
                             color: Color(0xff273430),
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        CustomSvg(asset: AppIcons.arrowDown),
-                        const SizedBox(width: 16),
                       ],
                     ),
                   ),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  decoration: BoxDecoration(color: Color(0x80c4c4c4)),
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      overlay = CountryPickerWidget(
-                        selected: countryFrom,
-                        onClick: (code) {
-                          setState(() {
-                            countryFrom = code;
-                          });
-                        },
-                        clearOverlay: clearOverlay,
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    decoration: BoxDecoration(color: Color(0x80c4c4c4)),
+                  ),
+                  SizedBox(
+                    height: 48,
+                    child: Row(
+                      children: [
+                        Text(
+                          "Phone Number",
+                          style: TextStyle(
+                            fontFamily: "ROBOTO",
+                            fontWeight: FontWeight.w500,
+                            color: Color(0x4d000000),
+                          ),
+                        ),
+                        CountryCodePicker(
+                          showFlag: false,
+                          showFlagDialog: true,
+                          headerText: "Pick a country",
+                          padding: EdgeInsetsGeometry.only(),
+                          pickerStyle: PickerStyle.bottomSheet,
+                          dialogSize: Size(
+                            double.infinity,
+                            MediaQuery.of(context).size.height / 2,
+                          ),
+                          boxDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.black.withAlpha((8 * 2.55).toInt()),
+                            ),
+                          ),
+                          textStyle: TextStyle(
+                            fontSize: 13,
+                            color: Color(0xff273430),
+                            height: 1,
+                          ),
+                          dialogTextStyle: TextStyle(
+                            fontSize: 13,
+                            color: Color(0xff273430),
+                            height: 1,
+                          ),
+                          searchDecoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Search a country",
+                            hintStyle: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xffACACAC),
+                            ),
+                          ),
+                        ),
+                        Transform.translate(
+                          offset: Offset(-7, 0),
+                          child: CustomSvg(
+                            asset: AppIcons.arrowDown,
+                            width: 10,
+                            height: 4,
+                          ),
+                        ),
+                        Container(
+                          height: 24,
+                          width: 1,
+                          decoration: BoxDecoration(color: Color(0x80c4c4c4)),
+                        ),
+                        Expanded(
+                          child: TextField(
+                            textDirection: TextDirection.rtl,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                              color: Color(0xff273430),
+                            ),
+                            cursorColor: Color(0xff273430),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    decoration: BoxDecoration(color: Color(0x80c4c4c4)),
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      birthDate = await showDatePicker(
+                        context: context,
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(2050),
                       );
-                    });
-                  },
-                  child: SizedBox(
+                      setState(() {});
+                    },
+                    child: SizedBox(
+                      height: 48,
+                      child: Row(
+                        children: [
+                          Text(
+                            "Date of birth",
+                            style: TextStyle(
+                              fontFamily: "ROBOTO",
+                              fontWeight: FontWeight.w500,
+                              color: Color(0x4d000000),
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            birthDate == null
+                                ? ""
+                                : Formatter.dateFormatter(birthDate!),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                              color: Color(0xff273430),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          CustomSvg(asset: AppIcons.arrowDown),
+                          const SizedBox(width: 16),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    decoration: BoxDecoration(color: Color(0x80c4c4c4)),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        overlay = CountryPickerWidget(
+                          selected: countryFrom,
+                          onClick: (code) {
+                            setState(() {
+                              countryFrom = code;
+                            });
+                          },
+                          clearOverlay: clearOverlay,
+                        );
+                      });
+                    },
+                    child: SizedBox(
+                      height: 48,
+                      child: Row(
+                        children: [
+                          Text(
+                            "Country from",
+                            style: TextStyle(
+                              fontFamily: "ROBOTO",
+                              fontWeight: FontWeight.w500,
+                              color: Color(0x4d000000),
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            AppConstants.countryNames[countryFrom] ?? "",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                              color: Color(0xff273430),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          CustomSvg(asset: AppIcons.arrowDown),
+                          const SizedBox(width: 16),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    decoration: BoxDecoration(color: Color(0x80c4c4c4)),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        overlay = CountryPickerWidget(
+                          selected: livesIn,
+                          onClick: (code) {
+                            setState(() {
+                              livesIn = code;
+                            });
+                          },
+                          clearOverlay: clearOverlay,
+                        );
+                      });
+                    },
+                    child: SizedBox(
+                      height: 48,
+                      child: Row(
+                        children: [
+                          Text(
+                            "Lives in",
+                            style: TextStyle(
+                              fontFamily: "ROBOTO",
+                              fontWeight: FontWeight.w500,
+                              color: Color(0x4d000000),
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            AppConstants.countryNames[livesIn] ?? "",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                              color: Color(0xff273430),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          CustomSvg(asset: AppIcons.arrowDown),
+                          const SizedBox(width: 16),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    decoration: BoxDecoration(color: Color(0x80c4c4c4)),
+                  ),
+                  SizedBox(
                     height: 48,
                     child: Row(
                       children: [
                         Text(
-                          "Country from",
+                          "Public profile",
                           style: TextStyle(
                             fontFamily: "ROBOTO",
                             fontWeight: FontWeight.w500,
@@ -345,46 +430,30 @@ class _CreateProfileState extends State<CreateProfile> {
                           ),
                         ),
                         Spacer(),
-                        Text(
-                          AppConstants.countryNames[countryFrom] ?? "",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 13,
-                            color: Color(0xff273430),
-                          ),
+                        CustomSwitch(
+                          value: publicProfile,
+                          onChange: () {
+                            setState(() {
+                              publicProfile = !publicProfile;
+                            });
+                          },
                         ),
-                        const SizedBox(width: 16),
-                        CustomSvg(asset: AppIcons.arrowDown),
-                        const SizedBox(width: 16),
                       ],
                     ),
                   ),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  decoration: BoxDecoration(color: Color(0x80c4c4c4)),
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      overlay = CountryPickerWidget(
-                        selected: livesIn,
-                        onClick: (code) {
-                          setState(() {
-                            livesIn = code;
-                          });
-                        },
-                        clearOverlay: clearOverlay,
-                      );
-                    });
-                  },
-                  child: SizedBox(
+                  if(!widget.editProfile)
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    decoration: BoxDecoration(color: Color(0x80c4c4c4)),
+                  ),
+                  if(!widget.editProfile)
+                  SizedBox(
                     height: 48,
                     child: Row(
                       children: [
                         Text(
-                          "Lives in",
+                          "Connect your contacts",
                           style: TextStyle(
                             fontFamily: "ROBOTO",
                             fontWeight: FontWeight.w500,
@@ -392,96 +461,38 @@ class _CreateProfileState extends State<CreateProfile> {
                           ),
                         ),
                         Spacer(),
-                        Text(
-                          AppConstants.countryNames[livesIn] ?? "",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 13,
-                            color: Color(0xff273430),
-                          ),
+                        CustomSwitch(
+                          value: connectContacts,
+                          onChange: () {
+                            if (!connectContacts) {
+                              setState(() {
+                                connectContacts = true;
+                              });
+                            }
+                            getContacts().then((val) async {
+                              await Future.delayed(Duration(milliseconds: 200));
+                              setState(() {
+                                connectContacts = val;
+                              });
+                            });
+                          },
                         ),
-                        const SizedBox(width: 16),
-                        CustomSvg(asset: AppIcons.arrowDown),
-                        const SizedBox(width: 16),
                       ],
                     ),
                   ),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  decoration: BoxDecoration(color: Color(0x80c4c4c4)),
-                ),
-                SizedBox(
-                  height: 48,
-                  child: Row(
-                    children: [
-                      Text(
-                        "Public profile",
-                        style: TextStyle(
-                          fontFamily: "ROBOTO",
-                          fontWeight: FontWeight.w500,
-                          color: Color(0x4d000000),
-                        ),
-                      ),
-                      Spacer(),
-                      CustomSwitch(
-                        value: publicProfile,
-                        onChange: () {
-                          setState(() {
-                            publicProfile = !publicProfile;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  decoration: BoxDecoration(color: Color(0x80c4c4c4)),
-                ),
-                SizedBox(
-                  height: 48,
-                  child: Row(
-                    children: [
-                      Text(
-                        "Connect your contacts",
-                        style: TextStyle(
-                          fontFamily: "ROBOTO",
-                          fontWeight: FontWeight.w500,
-                          color: Color(0x4d000000),
-                        ),
-                      ),
-                      Spacer(),
-                      CustomSwitch(
-                        value: connectContacts,
-                        onChange: () {
-                          if (!connectContacts) {
-                            setState(() {
-                              connectContacts = true;
-                            });
-                          }
-                          getContacts().then((val) async {
-                            await Future.delayed(Duration(milliseconds: 200));
-                            setState(() {
-                              connectContacts = val;
-                            });
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 56),
-          CustomButton(
-            text: "Save",
-            onTap: () {
-              Get.to(() => Home());
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 60),
+            child: CustomButton(
+              text: "Save",
+              onTap: () {
+                Get.to(() => Home());
+              },
+            ),
           ),
         ],
       ),
@@ -582,7 +593,7 @@ class _CountryPickerWidgetState extends State<CountryPickerWidget> {
             ),
             const SizedBox(height: 36),
             SizedBox(
-              height: MediaQuery.of(context).size.height/3,
+              height: MediaQuery.of(context).size.height / 3,
               child: Stack(
                 children: [
                   SingleChildScrollView(
@@ -615,7 +626,10 @@ class _CountryPickerWidgetState extends State<CountryPickerWidget> {
                     left: 60,
                     right: 60,
                     bottom: MediaQuery.of(context).viewPadding.bottom,
-                    child: CustomButton(text: "Save", onTap: widget.clearOverlay),
+                    child: CustomButton(
+                      text: "Save",
+                      onTap: widget.clearOverlay,
+                    ),
                   ),
                 ],
               ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wanderlink/utils/custom_svg.dart';
 import 'package:wanderlink/views/base/custom_networked_image.dart';
 import 'package:wanderlink/views/base/custom_scaffold.dart';
 import 'package:wanderlink/views/base/profile_picture.dart';
+import 'package:wanderlink/views/screens/settings/report_form.dart';
 
 class PostDetails extends StatefulWidget {
   final String url;
@@ -89,7 +91,8 @@ class _PostDetailsState extends State<PostDetails> {
           enableBlur = false;
         });
         if (value == 0) {
-        } else if (value == 1) {}
+          Get.to(() => ReportForm(isPost: true));
+        }
       },
       onCanceled: () {
         setState(() {
