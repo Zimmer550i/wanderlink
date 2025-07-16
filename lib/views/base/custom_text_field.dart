@@ -94,14 +94,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
             decoration: BoxDecoration(
               color: Colors.white.withAlpha((66 * 2.55).toInt()),
               borderRadius: BorderRadius.circular(widget.radius),
-              border: isFocused
+              border: widget.errorText != null
+                  ? Border.all(color: Color(0xffFF3636))
+                  : isFocused
                   ? Border.all(color: Color(0xff0289F2), width: 2)
                   : Border.all(color: Colors.white),
               boxShadow: [
                 BoxShadow(
                   blurRadius: 24,
                   offset: Offset(0, 4),
-                  color: Colors.black.withAlpha(((widget.darkerShadow ? 23 : 6)*2.55).toInt()),
+                  color: Colors.black.withAlpha(
+                    ((widget.darkerShadow ? 23 : 6) * 2.55).toInt(),
+                  ),
                 ),
               ],
             ),
@@ -183,14 +187,20 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         if (widget.errorText != null)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Text(
-              widget.errorText!,
-              style: TextStyle(
-                fontVariations: [FontVariation("wght", 400)],
-                fontSize: 12,
-                color: Colors.red,
-              ),
+            padding: const EdgeInsets.only(top: 5),
+            child: Row(
+              children: [
+                Icon(Icons.error, color: Color(0xffFF3636), size: 14),
+                const SizedBox(width: 6),
+                Text(
+                  widget.errorText!,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: "inter",
+                    color: Color(0xffFF3636),
+                  ),
+                ),
+              ],
             ),
           ),
       ],

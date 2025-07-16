@@ -27,14 +27,17 @@ class _CountryPickerState extends State<CountryPicker> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomSearchBar(
-          height: 50,
-          iconSize: 20,
-          onChanged: (p0) {
-            setState(() {
-              searchText = p0;
-            });
-          },
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: CustomSearchBar(
+            height: 50,
+            iconSize: 20,
+            onChanged: (p0) {
+              setState(() {
+                searchText = p0;
+              });
+            },
+          ),
         ),
         const SizedBox(height: 36),
         SizedBox(

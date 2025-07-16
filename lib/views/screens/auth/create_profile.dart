@@ -7,16 +7,17 @@ import 'package:wanderlink/utils/app_constants.dart';
 import 'package:wanderlink/utils/app_icons.dart';
 import 'package:wanderlink/utils/custom_svg.dart';
 import 'package:wanderlink/utils/formatter.dart';
-import 'package:wanderlink/views/base/country_widget.dart';
 import 'package:wanderlink/views/base/custom_button.dart';
 import 'package:wanderlink/views/base/custom_modal_sheet.dart';
 import 'package:wanderlink/views/base/custom_scaffold.dart';
-import 'package:wanderlink/views/base/custom_search_bar.dart';
 import 'package:wanderlink/views/base/custom_switch.dart';
 import 'package:wanderlink/views/base/profile_picture.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:wanderlink/views/screens/home/home.dart';
+import 'package:wanderlink/views/screens/modal_sheets/country_picker.dart';
+import 'package:wanderlink/views/screens/modal_sheets/create_username.dart';
+import 'package:wanderlink/views/screens/modal_sheets/custom_date_picker.dart';
+import 'package:wanderlink/views/screens/onboarding/onboarding1.dart';
 
 class CreateProfile extends StatefulWidget {
   final bool editProfile;
@@ -34,6 +35,7 @@ class _CreateProfileState extends State<CreateProfile> {
   String? countryFrom;
   String? livesIn;
   DateTime? birthDate;
+  String? userName;
 
   void clearOverlay() {
     setState(() {
@@ -281,12 +283,17 @@ class _CreateProfileState extends State<CreateProfile> {
                   ),
                   InkWell(
                     onTap: () async {
-                      birthDate = await showDatePicker(
-                        context: context,
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime(2050),
-                      );
-                      setState(() {});
+                      setState(() {
+                        overlay = CustomDatePicker(
+                          initial: birthDate,
+                          onSubmit: (date) {
+                            setState(() {
+                              birthDate = date;
+                              overlay = null;
+                            });
+                          },
+                        );
+                      });
                     },
                     child: SizedBox(
                       height: 48,
@@ -326,14 +333,32 @@ class _CreateProfileState extends State<CreateProfile> {
                   InkWell(
                     onTap: () {
                       setState(() {
-                        overlay = CountryPickerWidget(
-                          selected: countryFrom,
-                          onClick: (code) {
-                            setState(() {
-                              countryFrom = code;
-                            });
-                          },
-                          clearOverlay: clearOverlay,
+                        overlay = Column(
+                          children: [
+                            const SizedBox(height: 38),
+                            Text(
+                              "Country From",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 26),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                              ),
+                              child: CountryPicker(
+                                current: countryFrom,
+                                onSubmit: (p0) {
+                                  setState(() {
+                                    countryFrom = p0;
+                                    overlay = null;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
                         );
                       });
                     },
@@ -373,14 +398,32 @@ class _CreateProfileState extends State<CreateProfile> {
                   InkWell(
                     onTap: () {
                       setState(() {
-                        overlay = CountryPickerWidget(
-                          selected: livesIn,
-                          onClick: (code) {
-                            setState(() {
-                              livesIn = code;
-                            });
-                          },
-                          clearOverlay: clearOverlay,
+                        overlay = Column(
+                          children: [
+                            const SizedBox(height: 38),
+                            Text(
+                              "Lives In",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 26),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                              ),
+                              child: CountryPicker(
+                                current: livesIn,
+                                onSubmit: (p0) {
+                                  setState(() {
+                                    livesIn = p0;
+                                    overlay = null;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
                         );
                       });
                     },
@@ -441,45 +484,47 @@ class _CreateProfileState extends State<CreateProfile> {
                       ],
                     ),
                   ),
-                  if(!widget.editProfile)
-                  Container(
-                    width: double.infinity,
-                    height: 1,
-                    decoration: BoxDecoration(color: Color(0x80c4c4c4)),
-                  ),
-                  if(!widget.editProfile)
-                  SizedBox(
-                    height: 48,
-                    child: Row(
-                      children: [
-                        Text(
-                          "Connect your contacts",
-                          style: TextStyle(
-                            fontFamily: "ROBOTO",
-                            fontWeight: FontWeight.w500,
-                            color: Color(0x4d000000),
-                          ),
-                        ),
-                        Spacer(),
-                        CustomSwitch(
-                          value: connectContacts,
-                          onChange: () {
-                            if (!connectContacts) {
-                              setState(() {
-                                connectContacts = true;
-                              });
-                            }
-                            getContacts().then((val) async {
-                              await Future.delayed(Duration(milliseconds: 200));
-                              setState(() {
-                                connectContacts = val;
-                              });
-                            });
-                          },
-                        ),
-                      ],
+                  if (!widget.editProfile)
+                    Container(
+                      width: double.infinity,
+                      height: 1,
+                      decoration: BoxDecoration(color: Color(0x80c4c4c4)),
                     ),
-                  ),
+                  if (!widget.editProfile)
+                    SizedBox(
+                      height: 48,
+                      child: Row(
+                        children: [
+                          Text(
+                            "Connect your contacts",
+                            style: TextStyle(
+                              fontFamily: "ROBOTO",
+                              fontWeight: FontWeight.w500,
+                              color: Color(0x4d000000),
+                            ),
+                          ),
+                          Spacer(),
+                          CustomSwitch(
+                            value: connectContacts,
+                            onChange: () {
+                              if (!connectContacts) {
+                                setState(() {
+                                  connectContacts = true;
+                                });
+                              }
+                              getContacts().then((val) async {
+                                await Future.delayed(
+                                  Duration(milliseconds: 200),
+                                );
+                                setState(() {
+                                  connectContacts = val;
+                                });
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -490,7 +535,18 @@ class _CreateProfileState extends State<CreateProfile> {
             child: CustomButton(
               text: "Save",
               onTap: () {
-                Get.to(() => Home());
+                if (userName == null) {
+                  setState(() {
+                    overlay = CreateUsername(
+                      onSubmit: (p0) {
+                        setState(() {
+                          userName = p0;
+                          Get.to(() => Onboarding1());
+                        });
+                      },
+                    );
+                  });
+                } else {}
               },
             ),
           ),
@@ -542,105 +598,4 @@ class _CreateProfileState extends State<CreateProfile> {
       return false;
     }
   }
-}
-
-class CountryPickerWidget extends StatefulWidget {
-  final String? selected;
-  final void Function(String? code) onClick;
-  final void Function() clearOverlay;
-
-  const CountryPickerWidget({
-    super.key,
-    required this.selected,
-    required this.onClick,
-    required this.clearOverlay,
-  });
-
-  @override
-  State<CountryPickerWidget> createState() => _CountryPickerWidgetState();
-}
-
-class _CountryPickerWidgetState extends State<CountryPickerWidget> {
-  String? current;
-  String? searchText;
-
-  @override
-  void initState() {
-    super.initState();
-    current = widget.selected;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 40),
-        Text("Country From", style: TextStyle(fontSize: 14)),
-        const SizedBox(height: 24),
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48),
-              child: CustomSearchBar(
-                height: 50,
-                iconSize: 20,
-                onChanged: (p0) {
-                  setState(() {
-                    searchText = p0;
-                  });
-                },
-              ),
-            ),
-            const SizedBox(height: 36),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 3,
-              child: Stack(
-                children: [
-                  SingleChildScrollView(
-                    child: SafeArea(
-                      top: false,
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: Wrap(
-                          alignment: WrapAlignment.spaceEvenly,
-                          children: [
-                            for (var i in AppConstants.countryNames.keys)
-                              if (searchQuery(i))
-                                CountryWidget(
-                                  countryCode: i,
-                                  isSelected: i == current,
-                                  onClick: () {
-                                    setState(() {
-                                      current = i;
-                                      widget.onClick(i);
-                                    });
-                                  },
-                                ),
-                            const SizedBox(height: 40, width: double.infinity),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 60,
-                    right: 60,
-                    bottom: MediaQuery.of(context).viewPadding.bottom,
-                    child: CustomButton(
-                      text: "Save",
-                      onTap: widget.clearOverlay,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  bool searchQuery(String i) => AppConstants.countryNames[i]!
-      .toLowerCase()
-      .contains(searchText?.toLowerCase() ?? "");
 }
