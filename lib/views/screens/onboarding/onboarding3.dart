@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:wanderlink/views/base/custom_scaffold.dart';
-import 'package:wanderlink/views/screens/onboarding/onboarding2.dart';
+import 'package:wanderlink/views/screens/onboarding/onboarding4.dart';
 
-class Onboarding1 extends StatefulWidget {
-  const Onboarding1({super.key});
+class Onboarding3 extends StatefulWidget {
+  const Onboarding3({super.key});
 
   @override
-  State<Onboarding1> createState() => _Onboarding1State();
+  State<Onboarding3> createState() => _Onboarding3State();
 }
 
-class _Onboarding1State extends State<Onboarding1> {
+class _Onboarding3State extends State<Onboarding3> {
   final double swipeThreshold = 0.0;
   double _initialX = 0;
 
   void onSwipeLeft() {
-    Get.to(() => Onboarding2(), transition: Transition.rightToLeft);
+    Get.to(() => Onboarding4(), transition: Transition.rightToLeft);
   }
 
-  void onSwipeRight() {}
+  void onSwipeRight() {
+    Get.back();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class _Onboarding1State extends State<Onboarding1> {
             context: context,
             removeTop: true,
             child: Image.asset(
-              "assets/images/onboarding1.png",
+              "assets/images/onboarding3.png",
               fit: BoxFit.cover,
               width: double.infinity,
             ),
@@ -57,7 +59,7 @@ class _Onboarding1State extends State<Onboarding1> {
             child: Column(
               children: [
                 Text(
-                  "Record",
+                  "Discover",
                   style: TextStyle(
                     fontFamily: "Krona One",
                     fontSize: 24,
@@ -66,7 +68,7 @@ class _Onboarding1State extends State<Onboarding1> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "Consider this app your personal travel journal. Keep track of everywhere you’ve been",
+                  "Explore what the world has to offer- search any country for insights and inspiration",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16, color: Color(0xff65758C)),
                 ),
@@ -83,23 +85,23 @@ class _Onboarding1State extends State<Onboarding1> {
                 width: 10,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
+                  color: Color(0xffADADAD),
+                ),
+              ),
+              Container(
+                height: 10,
+                width: 10,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xffADADAD),
+                ),
+              ),
+              Container(
+                height: 10,
+                width: 10,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
                   color: Color(0xffFF5678),
-                ),
-              ),
-              Container(
-                height: 10,
-                width: 10,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xffADADAD),
-                ),
-              ),
-              Container(
-                height: 10,
-                width: 10,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xffADADAD),
                 ),
               ),
             ],

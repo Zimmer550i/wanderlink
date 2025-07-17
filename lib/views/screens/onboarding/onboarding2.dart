@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:wanderlink/views/base/custom_scaffold.dart';
-import 'package:wanderlink/views/screens/onboarding/onboarding2.dart';
+import 'package:wanderlink/views/screens/onboarding/onboarding3.dart';
 
-class Onboarding1 extends StatefulWidget {
-  const Onboarding1({super.key});
+class Onboarding2 extends StatefulWidget {
+  const Onboarding2({super.key});
 
   @override
-  State<Onboarding1> createState() => _Onboarding1State();
+  State<Onboarding2> createState() => _Onboarding2State();
 }
 
-class _Onboarding1State extends State<Onboarding1> {
+class _Onboarding2State extends State<Onboarding2> {
   final double swipeThreshold = 0.0;
   double _initialX = 0;
 
   void onSwipeLeft() {
-    Get.to(() => Onboarding2(), transition: Transition.rightToLeft);
+    Get.to(() => Onboarding3(), transition: Transition.rightToLeft);
   }
 
-  void onSwipeRight() {}
+  void onSwipeRight() {
+    Get.back();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class _Onboarding1State extends State<Onboarding1> {
             context: context,
             removeTop: true,
             child: Image.asset(
-              "assets/images/onboarding1.png",
+              "assets/images/onboarding2.png",
               fit: BoxFit.cover,
               width: double.infinity,
             ),
@@ -57,7 +59,7 @@ class _Onboarding1State extends State<Onboarding1> {
             child: Column(
               children: [
                 Text(
-                  "Record",
+                  "Connect",
                   style: TextStyle(
                     fontFamily: "Krona One",
                     fontSize: 24,
@@ -66,7 +68,7 @@ class _Onboarding1State extends State<Onboarding1> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "Consider this app your personal travel journal. Keep track of everywhere you’ve been",
+                  "Connect with friends and compare how your journeys around the world stack up",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16, color: Color(0xff65758C)),
                 ),
@@ -83,7 +85,7 @@ class _Onboarding1State extends State<Onboarding1> {
                 width: 10,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Color(0xffFF5678),
+                  color: Color(0xffADADAD),
                 ),
               ),
               Container(
@@ -91,7 +93,7 @@ class _Onboarding1State extends State<Onboarding1> {
                 width: 10,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Color(0xffADADAD),
+                  color: Color(0xffFF5678),
                 ),
               ),
               Container(

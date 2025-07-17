@@ -52,6 +52,10 @@ flutter:
     - assets/language/
 
   fonts:
+    - family: Krona One
+      fonts:
+        - asset: assets/fonts/KronaOne-Regular.ttf
+          weight: 400
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-Thin.ttf
