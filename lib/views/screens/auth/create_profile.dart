@@ -535,7 +535,7 @@ class _CreateProfileState extends State<CreateProfile> {
             child: CustomButton(
               text: "Save",
               onTap: () {
-                if (widget.editProfile || userName == null) {
+                if (!widget.editProfile && userName == null) {
                   setState(() {
                     overlay = CreateUsername(
                       onSubmit: (p0) {
