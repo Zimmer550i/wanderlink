@@ -20,7 +20,7 @@ Future<File?> customImagePicker({isCircular = true, isSquared = true}) async {
           toolbarColor: Color(0xff1C73A3),
           toolbarWidgetColor: Colors.blue[50],
           backgroundColor: Colors.black,
-          statusBarColor: Colors.white,
+          statusBarColor: Colors.black,
           cropStyle: isCircular ? CropStyle.circle : CropStyle.rectangle,
           hideBottomControls: isSquared,
           initAspectRatio: CropAspectRatioPreset.square,
