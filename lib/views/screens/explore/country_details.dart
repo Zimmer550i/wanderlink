@@ -339,7 +339,11 @@ class _CountryDetailsState extends State<CountryDetails> {
               setState(() {
                 overlay = Padding(
                   padding: const EdgeInsets.only(top: 33, left: 40, right: 40),
-                  child: RecordCountry(),
+                  child: RecordCountry(
+                    onSubmit: () => setState(() {
+                      overlay = null;
+                    }),
+                  ),
                 );
               });
             },

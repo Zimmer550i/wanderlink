@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
+import 'package:get/get.dart';
 import 'package:wanderlink/utils/app_constants.dart';
 import 'package:wanderlink/views/base/country_widget.dart';
+import 'package:wanderlink/views/base/custom_loading.dart';
 import 'package:wanderlink/views/base/custom_scaffold.dart';
 import 'package:wanderlink/views/base/custom_search_bar.dart';
+import 'package:wanderlink/views/base/guide_widget.dart';
+import 'package:wanderlink/views/screens/onboarding/friend_suggestions.dart';
 
 class AddCountries extends StatefulWidget {
   const AddCountries({super.key});
@@ -15,64 +18,74 @@ class AddCountries extends StatefulWidget {
 class _AddCountriesState extends State<AddCountries> {
   Map<String, List<CountryWidget>> countries = {};
   List<String> selected = [];
+  bool isLoading = false;
+  final double swipeThreshold = 20.0;
+  double _initialX = 0;
 
   @override
   void initState() {
     super.initState();
+    loadCountries();
+  }
+
+  void onSwipeLeft() {
+    Get.to(() => FriendSuggestions(), transition: Transition.rightToLeft);
+  }
+
+  void onSwipeRight() {
+    Get.back();
+  }
+
+  void loadCountries() async {
+    setState(() {
+      isLoading = true;
+    });
+
     getCountries("");
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      hasAppbar: false,
-      hasNavbar: false,
-      children: [
-        SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: InnerShadow(
-              shadows: [
-                Shadow(offset: Offset(0, -4), color: Color(0x2163BE79)),
-              ],
-              child: Container(
-                padding: EdgeInsets.only(
-                  top: 14,
-                  bottom: 14,
-                  left: 12,
-                  right: 20,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(3, 5),
-                      color: Colors.black.withAlpha((15 * 2.55).toInt()),
-                    ),
-                  ],
-                ),
-                child: Text(
-                  "Click on the Countries to\nadd them!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15, color: Color(0xff65758C)),
-                ),
-              ),
+    return GestureDetector(
+      onPanStart: (details) {
+        _initialX = details.localPosition.dx;
+      },
+      onPanUpdate: (details) {
+        final double deltaX = details.localPosition.dx - _initialX;
+
+        if (deltaX > swipeThreshold) {
+          onSwipeRight();
+          _initialX = details.localPosition.dx;
+        } else if (deltaX < -swipeThreshold) {
+          onSwipeLeft();
+          _initialX = details.localPosition.dx;
+        }
+      },
+      child: CustomScaffold(
+        hasAppbar: false,
+        hasNavbar: false,
+        children: [
+          SafeArea(
+            child: GuideWidget(text: "Click on the Countries to\nadd them!"),
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: CustomSearchBar(
+              height: 60,
+              iconSize: 24,
+              onChanged: (val) => setState(() {
+                getCountries(val);
+              }),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: CustomSearchBar(
-            height: 60,
-            iconSize: 24,
-            onChanged: (val) => setState(() {
-              getCountries(val);
-            }),
-          ),
-        ),
-        showCountries(),
-      ],
+          isLoading ? CustomLoading() : showCountries(),
+        ],
+      ),
     );
   }
 
@@ -87,11 +100,18 @@ class _AddCountriesState extends State<AddCountries> {
           CountryWidget(
             countryCode: i,
             isSelected: false,
+            isVisited: selected.contains(i),
             onClick: () {
               if (selected.contains(i)) {
                 selected.remove(i);
+                setState(() {
+                  getCountries(searchText);
+                });
               } else {
                 selected.add(i);
+                setState(() {
+                  getCountries(searchText);
+                });
               }
             },
           ),

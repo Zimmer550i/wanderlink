@@ -14,7 +14,8 @@ import 'package:wanderlink/views/screens/modal_sheets/country_picker.dart';
 import 'package:wanderlink/views/screens/modal_sheets/record_country.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  final bool demo;
+  const Home({super.key, this.demo = false});
 
   @override
   State<Home> createState() => _HomeState();
@@ -36,6 +37,7 @@ class _HomeState extends State<Home> {
       child: CustomScaffold(
         isScrollable: false,
         hasLeading: false,
+        hasNavbar: !widget.demo,
         showLogo: true,
         leading: GestureDetector(
           onTap: () {
@@ -46,7 +48,13 @@ class _HomeState extends State<Home> {
         trailing: GestureDetector(
           onTap: () {
             setState(() {
-              overlay = RecordACountry();
+              overlay = RecordACountry(
+                onSubmit: (val) {
+                  setState(() {
+                    overlay = null;
+                  });
+                },
+              );
             });
           },
           child: Container(
@@ -109,6 +117,7 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 20),
             ],
           ),
+          if (widget.demo) const SizedBox(height: 70),
         ],
       ),
     );
@@ -292,7 +301,8 @@ class _HomeState extends State<Home> {
 }
 
 class RecordACountry extends StatefulWidget {
-  const RecordACountry({super.key});
+  final void Function(String) onSubmit;
+  const RecordACountry({super.key, required this.onSubmit});
 
   @override
   State<RecordACountry> createState() => _RecordACountryState();
@@ -335,7 +345,12 @@ class _RecordACountryState extends State<RecordACountry> {
                 showShadow: true,
               ),
             ),
-          if (selectedCountry != null) RecordCountry(),
+          if (selectedCountry != null)
+            RecordCountry(
+              onSubmit: () {
+                widget.onSubmit(selectedCountry!);
+              },
+            ),
         ],
       ),
     );

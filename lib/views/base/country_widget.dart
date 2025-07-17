@@ -26,60 +26,65 @@ class CountryWidget extends StatelessWidget {
     return InkWell(
       onTap: onClick,
       borderRadius: BorderRadius.circular(20),
-      child: Container(
-        height: 90,
-        width: 90,
-        padding: EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: isVisited
-              ? Color(0xffD1FEDD)
-              : isSelected
-              ? Color(0xffF5F5F5)
-              : Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            if (showShadow)
-              BoxShadow(
-                offset: Offset(0, 4),
-                color: Colors.black.withAlpha((10 * 2.55).toInt()),
-                blurRadius: 4,
-              ),
-          ],
-        ),
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            ClipRRect(
-              borderRadius: BorderRadiusGeometry.circular(4),
-              child: SizedBox(
-                height: 29,
-                width: 45,
-                child: FittedBox(
-                  fit: BoxFit.cover,
-                  child: CustomSvg(asset: "assets/flags/$countryCode.svg"),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            height: 90,
+            width: 90,
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: isVisited
+                  ? Color(0xffD1FEDD)
+                  : isSelected
+                  ? Color(0xffF5F5F5)
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                if (showShadow)
+                  BoxShadow(
+                    offset: Offset(0, 4),
+                    color: Colors.black.withAlpha((10 * 2.55).toInt()),
+                    blurRadius: 4,
+                  ),
+              ],
+            ),
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                ClipRRect(
+                  borderRadius: BorderRadiusGeometry.circular(4),
+                  child: SizedBox(
+                    height: 29,
+                    width: 45,
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: CustomSvg(asset: "assets/flags/$countryCode.svg"),
+                    ),
+                  ),
                 ),
-              ),
+                const Spacer(),
+                Text(
+                  AppConstants.countryNames[countryCode] ?? countryCode,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xff273430),
+                    fontSize: 12,
+                    height: 1,
+                  ),
+                ),
+                const SizedBox(height: 10),
+              ],
             ),
-            const Spacer(),
-            Text(
-              AppConstants.countryNames[countryCode] ?? countryCode,
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xff273430),
-                fontSize: 12,
-                height: 1,
-              ),
+          ),
+          if (isVisited)
+            Positioned(
+              top: -4,
+              right: -9,
+              child: CustomSvg(asset: "assets/icons/tick.svg"),
             ),
-            // Text(
-            //    countryCode,
-            //   maxLines: 2,
-            //   textAlign: TextAlign.center,
-            //   style: TextStyle(color: Color(0xff273430), fontSize: 8),
-            // ),
-            const SizedBox(height: 10),
-          ],
-        ),
+        ],
       ),
     );
   }

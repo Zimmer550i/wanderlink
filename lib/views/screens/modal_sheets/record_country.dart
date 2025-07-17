@@ -9,7 +9,8 @@ import 'package:wanderlink/views/base/simple_switch.dart';
 import 'package:wanderlink/views/screens/explore/add_photo.dart';
 
 class RecordCountry extends StatefulWidget {
-  const RecordCountry({super.key});
+  final void Function() onSubmit;
+  const RecordCountry({super.key, required this.onSubmit});
 
   @override
   State<RecordCountry> createState() => _RecordCountryState();
@@ -21,6 +22,7 @@ class _RecordCountryState extends State<RecordCountry> {
   bool fav = false;
   bool lived = false;
 
+  final visitedCtrl = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
   List<File?> images = [];
@@ -88,19 +90,26 @@ class _RecordCountryState extends State<RecordCountry> {
                           borderRadius: BorderRadius.circular(3),
                           border: Border.all(color: Color(0x4a3C3C43)),
                         ),
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          focusNode: _focusNode,
-                          onTapOutside: (_) {
-                            _focusNode.unfocus();
-                          },
-                          decoration: InputDecoration(
-                            isDense: true,
-                            isCollapsed: true,
-                            border: InputBorder.none,
+                        child: Center(
+                          child: TextField(
+                            controller: visitedCtrl,
+                            keyboardType: TextInputType.number,
+                            focusNode: _focusNode,
+                            onTapOutside: (_) {
+                              _focusNode.unfocus();
+                            },
+                            decoration: InputDecoration(
+                              isDense: true,
+                              isCollapsed: true,
+                              border: InputBorder.none,
+                            ),
+                            cursorColor: Color(0xff007AFF),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                            ),
+                            cursorHeight: 16,
                           ),
-                          cursorColor: Color(0xff007AFF),
-                          cursorHeight: 16,
                         ),
                       ),
                       const SizedBox(width: 17),
@@ -289,7 +298,7 @@ class _RecordCountryState extends State<RecordCountry> {
             ],
           ),
         ),
-        CustomButton(text: "Update"),
+        CustomButton(text: "Update", onTap: widget.onSubmit),
       ],
     );
   }

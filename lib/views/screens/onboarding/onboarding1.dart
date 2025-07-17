@@ -11,7 +11,7 @@ class Onboarding1 extends StatefulWidget {
 }
 
 class _Onboarding1State extends State<Onboarding1> {
-  final double swipeThreshold = 0.0;
+  final double swipeThreshold = 20.0;
   double _initialX = 0;
 
   void onSwipeLeft() {
